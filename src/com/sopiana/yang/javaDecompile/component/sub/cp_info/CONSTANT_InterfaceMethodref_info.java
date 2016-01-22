@@ -1,4 +1,4 @@
-package com.sopiana.yang.javaDecompile.subComponent;
+package com.sopiana.yang.javaDecompile.component.sub.cp_info;
 
 import com.sopiana.yang.javaDecompile.component.cp_info;
 import com.sopiana.yang.javaDecompile.util.Util;
@@ -16,4 +16,6 @@ public class CONSTANT_InterfaceMethodref_info extends cp_info{
 		return res;
     }
 	public int getSize() { return 5; }
+	public short class_index() { return class_index; }
+	public short name_and_type_index() { return name_and_type_index; }
 }

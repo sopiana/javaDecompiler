@@ -1,15 +1,10 @@
 package com.sopiana.yang.javaDecompile.component;
 
-import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Dictionary;
-import java.util.Hashtable;
 
-import javax.crypto.Mac;
-
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Utf8_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Class_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Utf8_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Void;
 import com.sopiana.yang.javaDecompile.util.Util;
 
 public class ClassFile
@@ -45,20 +40,28 @@ public class ClassFile
 	private String className;
 	private String superClassName;
 	private ArrayList<String> importedPackage;
+	private ArrayList<String> implementedInterfaces;
+
+	private ClassFile()
+	{
+		importedPackage = new ArrayList<String>();
+		implementedInterfaces = new ArrayList<String>();
+	}
 	
-	public static ClassFile getInstance(byte[] classFileData) throws compilerException
+	public static ClassFile getInstance(byte[] classFileData) throws decompilerException
     {
 		int offset = 0;
 		ClassFile instance = new ClassFile();
-		instance.importedPackage = new ArrayList<String>();
+	
 		instance.magic = Util.byte2Int(classFileData, offset); offset+=4;
 		if(instance.magic!=MAGIC)
-			throw new compilerException("Invalid MAGIC number");
+			throw new decompilerException("Invalid MAGIC number");
 		instance.minor_version = Util.byte2Short(classFileData,offset);offset+=2;
 		instance.major_version = Util.byte2Short(classFileData,offset);offset+=2;
 		instance.constant_pool_count = Util.byte2Short(classFileData,offset);offset+=2;
-		instance.constant_pool = new cp_info[instance.constant_pool_count - 1];
-		for(int i=0;i<instance.constant_pool.length;++i)
+		instance.constant_pool = new cp_info[instance.constant_pool_count];
+		instance.constant_pool[0] = new CONSTANT_Void();
+		for(int i=1;i<instance.constant_pool.length;++i)
 		{
 			instance.constant_pool[i] = cp_info.getInstance(classFileData, offset);
 			offset += instance.constant_pool[i].getSize();
@@ -114,23 +117,41 @@ public class ClassFile
 		return res;
 	}
 	
-	public void parse() throws  compilerException
+	public void parse() throws  decompilerException
 	{
+		/*
+		System.out.println("\nthis_class: "+this_class);
+		System.out.println("\nflags: "+getAccessModifier(access_flags));
+		for(int i=0;i<constant_pool.length;++i)
+		{
+			System.out.format("\ncp["+i+"]==>offset: %04x "+constant_pool[i].getClass().getName()+"\n",constant_pool[i].getOffset());
+			if(constant_pool[i] instanceof CONSTANT_Utf8_info)
+			{
+				System.out.println(((CONSTANT_Utf8_info)constant_pool[i]).getString());
+			}
+			if(constant_pool[i] instanceof CONSTANT_Class_info)
+			{
+				System.out.println("Name_index: "+((CONSTANT_Class_info)constant_pool[i]).getName_index());
+			}
+		}
+		for(int i=0;i<attributes.length;++i)
+			System.out.println("attr["+i+"]==>Offset: "+attributes[i].getOffset()+
+					" name index:"+attributes[i].getAttribute_name_index());
+		for(int i=0;i<fields.length;++i)
+			System.out.println("fld["+i+"]==>Offset:" +fields[i].getOffset()+
+					" name index: "+fields[i].getName_index()+" descriptor index: "+fields[i].getDescriptor_index());
+		for(int i=0;i<methods.length;++i)
+			System.out.println("mtd["+i+"]==>Offset:" +methods[i].getOffset()+
+					" name index: "+methods[i].getName_index()+" descriptor index: "+methods[i].getDescriptor_index());
+		*/
+		fixAttributesType();
 		parseThis_Class();
 		parseSuper_Class();
+		parseInterfaces();
+		System.out.println(toString());
 	}
 	
-	private void parseThis_Class() throws compilerException
-	{
-		if(constant_pool[this_class] instanceof CONSTANT_Utf8_info)
-		{
-			packageName = ((CONSTANT_Utf8_info)constant_pool[this_class]).getString().replace("/", ".");
-			className = packageName.substring(packageName.lastIndexOf(".")+1);
-			packageName = packageName.substring(0, packageName.lastIndexOf("."));
-			return;
-		}
-		throw new compilerException("invalid this_class component");
-	}
+	
 	
 	private void addImportedPackage(String packageName)
 	{
@@ -144,22 +165,72 @@ public class ClassFile
 		importedPackage.add(packageName);
 	}
 	
-	private void parseSuper_Class() throws compilerException
+	private String getClassName(int index) throws decompilerException
 	{
-		if(constant_pool[super_class] instanceof CONSTANT_Utf8_info)
+		int nameIndex=0;
+		if(constant_pool[index] instanceof CONSTANT_Class_info)
 		{
-			superClassName = ((CONSTANT_Utf8_info)constant_pool[super_class]).getString().replace("/", ".");
-			addImportedPackage(superClassName.substring(0, superClassName.lastIndexOf(".")));
-			return;
+			nameIndex = ((CONSTANT_Class_info)constant_pool[index]).getName_index();
+		
+			if(constant_pool[nameIndex] instanceof CONSTANT_Utf8_info)
+			{
+				return ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString().replace("/", ".");
+			}
+			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
 		}
-		throw new compilerException("invalid super_class component");
+		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Class_info");
 	}
 	
+	private String getName(int index) throws decompilerException
+	{
+		if(constant_pool[index] instanceof CONSTANT_Utf8_info)
+		{
+			return ((CONSTANT_Utf8_info)constant_pool[index]).getString().replace("/", ".");
+		}
+		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Utf8_info");
+	}
+	
+	private void parseThis_Class() throws decompilerException
+	{
+		packageName = getClassName(this_class);
+		className = packageName.substring(packageName.lastIndexOf(".")+1);
+		packageName = packageName.substring(0, packageName.lastIndexOf("."));
+	}
+	
+	private void parseSuper_Class() throws decompilerException
+	{
+		superClassName = getClassName(super_class);
+		if(superClassName.contains("."))
+			addImportedPackage(superClassName.substring(0, superClassName.lastIndexOf(".")));
+	}
+	
+	private void parseInterfaces() throws decompilerException
+	{
+		String interfaceName;
+		for(int i=0;i<interfaces.length;++i)
+		{
+			interfaceName = getClassName(interfaces[i]);
+			implementedInterfaces.add(interfaceName);
+			if(interfaceName.contains("."))
+				addImportedPackage(interfaceName.substring(0, interfaceName.lastIndexOf(".")));
+		}
+	}
+	
+	private void fixAttributesType() throws decompilerException
+	{
+		String attribInfo;
+		for(attribute_info attrib:attributes)
+		{
+			attribInfo = getName(attrib.getAttribute_name_index());
+			attrib = attrib.getAttribute(attribInfo);
+		}
+	}
 	public String toString()
 	{
 		String res="";
 		try
 		{
+			System.out.println("==========================================");
 			System.out.println("Package Name = "+packageName);
 			System.out.println("Class Name = "+className);
 			System.out.println("Super Class = "+superClassName);
@@ -167,6 +238,25 @@ public class ClassFile
 			for(String s:importedPackage)
 			{
 				System.out.println(s);
+			}
+			
+			System.out.println("Implemented interfaces");
+			for(String s:implementedInterfaces)
+			{
+				System.out.println(s);
+			}
+			
+			System.out.println("Fields");
+			for(field_info f:fields)
+			{
+				System.out.println(field_info.getAccessModifier(f.getAccess_flags())+" "+
+						getName(f.getName_index())+" "+getName(f.getDescriptor_index()));
+			}
+			System.out.println("Methods");
+			for(method_info m:methods)
+			{
+				System.out.println(method_info.getAccessModifier(m.getAccess_flags())+" "+
+						getName(m.getName_index())+" "+getName(m.getDescriptor_index()));
 			}
 		}
 		catch(Exception e)

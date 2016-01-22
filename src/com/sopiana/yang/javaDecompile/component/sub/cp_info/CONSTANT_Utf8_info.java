@@ -1,9 +1,9 @@
-package com.sopiana.yang.javaDecompile.subComponent;
+package com.sopiana.yang.javaDecompile.component.sub.cp_info;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import com.sopiana.yang.javaDecompile.component.compilerException;
+import com.sopiana.yang.javaDecompile.component.decompilerException;
 import com.sopiana.yang.javaDecompile.component.cp_info;
 import com.sopiana.yang.javaDecompile.util.Util;
 
@@ -20,13 +20,13 @@ public class CONSTANT_Utf8_info extends cp_info{
 		return res;
     }
 	public int getSize() { return 3+length;}
-	
-	public String getString() throws compilerException
+	public short getLength() { return length; }
+	public String getString() throws decompilerException
 	{
 		try {
 			return new String(bytes, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
-			throw new compilerException("invalid CONSTANT_Utf8_info encoding format");
+			throw new decompilerException("invalid CONSTANT_Utf8_info encoding format");
 		}
 	}
 }

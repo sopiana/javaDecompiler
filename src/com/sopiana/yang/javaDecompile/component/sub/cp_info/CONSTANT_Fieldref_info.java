@@ -1,9 +1,10 @@
-package com.sopiana.yang.javaDecompile.subComponent;
+package com.sopiana.yang.javaDecompile.component.sub.cp_info;
 
 import com.sopiana.yang.javaDecompile.component.cp_info;
 import com.sopiana.yang.javaDecompile.util.Util;
 
 public class CONSTANT_Fieldref_info extends cp_info{
+	
 	private short class_index;
 	private short name_and_type_index;
 	
@@ -16,5 +17,7 @@ public class CONSTANT_Fieldref_info extends cp_info{
 		return res;
     }
 	public int getSize() { return 5; }
+	public short getClass_index() { return class_index; }
+	public short getName_and_type_index() { return name_and_type_index; }
 
 }

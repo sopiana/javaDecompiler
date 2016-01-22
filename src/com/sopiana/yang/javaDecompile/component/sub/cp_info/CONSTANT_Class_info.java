@@ -1,10 +1,11 @@
-package com.sopiana.yang.javaDecompile.subComponent;
+package com.sopiana.yang.javaDecompile.component.sub.cp_info;
 
 import com.sopiana.yang.javaDecompile.component.cp_info;
 import com.sopiana.yang.javaDecompile.util.Util;
 
 public class CONSTANT_Class_info extends cp_info 
 {
+	
 	private short name_index;
 	
 	public static CONSTANT_Class_info getInstance(byte[] classFileData, int offset)
@@ -20,5 +21,5 @@ public class CONSTANT_Class_info extends cp_info
 	{
 		return 3;
 	}
-
+	public short getName_index() { return name_index; }
 }

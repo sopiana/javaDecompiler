@@ -1,9 +1,10 @@
-package com.sopiana.yang.javaDecompile.subComponent;
+package com.sopiana.yang.javaDecompile.component.sub.cp_info;
 
 import com.sopiana.yang.javaDecompile.component.cp_info;
 import com.sopiana.yang.javaDecompile.util.Util;
 
 public class CONSTANT_Double_info extends cp_info{
+	
 	private double value;
 	
 	public static CONSTANT_Double_info getInstance(byte[] classFileData, int offset)
@@ -16,4 +17,5 @@ public class CONSTANT_Double_info extends cp_info{
 		return res;
     }
 	public int getSize() { return 9; }
+	public double getValue() { return value; }
 }

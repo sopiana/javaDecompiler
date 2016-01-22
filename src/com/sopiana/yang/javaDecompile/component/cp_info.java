@@ -1,21 +1,22 @@
 package com.sopiana.yang.javaDecompile.component;
 
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Class_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Double_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Fieldref_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Float_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Integer_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_InterfaceMethodref_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_InvokeDynamic_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Long_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_MethodHandle_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_MethodType_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Methodref_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_NameAndType_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_String_info;
-import com.sopiana.yang.javaDecompile.subComponent.CONSTANT_Utf8_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Class_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Double_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Fieldref_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Float_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Integer_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_InterfaceMethodref_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_InvokeDynamic_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Long_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_MethodHandle_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_MethodType_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Methodref_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_NameAndType_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_String_info;
+import com.sopiana.yang.javaDecompile.component.sub.cp_info.CONSTANT_Utf8_info;
 
-public abstract class cp_info {
+public abstract class cp_info extends class_info{
+	
 	public static final byte CONSTANT_Class = 7;
 	public static final byte CONSTANT_Fieldref = 9;
 	public static final byte CONSTANT_Methodref = 10;
@@ -35,39 +36,56 @@ public abstract class cp_info {
 	
 	public static cp_info getInstance(byte[]classFileData, int offset)
 	{
+		cp_info res=null;
 		switch (classFileData[offset]) 
 		{
 			case CONSTANT_Class:
-				return CONSTANT_Class_info.getInstance(classFileData, offset);
+				res = CONSTANT_Class_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Fieldref:
-				return CONSTANT_Fieldref_info.getInstance(classFileData, offset);
+				res = CONSTANT_Fieldref_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Methodref:
-				return CONSTANT_Methodref_info.getInstance(classFileData, offset);
+				res = CONSTANT_Methodref_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_InterfaceMethodref:
-				return CONSTANT_InterfaceMethodref_info.getInstance(classFileData, offset);
+				res = CONSTANT_InterfaceMethodref_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_String:
-				return CONSTANT_String_info.getInstance(classFileData, offset);
+				res = CONSTANT_String_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Integer:
-				return CONSTANT_Integer_info.getInstance(classFileData, offset);
+				res = CONSTANT_Integer_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Float:
-				return CONSTANT_Float_info.getInstance(classFileData, offset);
+				res = CONSTANT_Float_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Long:
-				return CONSTANT_Long_info.getInstance(classFileData, offset);
+				res = CONSTANT_Long_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Double:
-				return CONSTANT_Double_info.getInstance(classFileData, offset);
+				res = CONSTANT_Double_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_NameAndType:
-				return CONSTANT_NameAndType_info.getInstance(classFileData, offset);
+				res = CONSTANT_NameAndType_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_Utf8:
-				return CONSTANT_Utf8_info.getInstance(classFileData, offset);
+				res = CONSTANT_Utf8_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_MethodHandle:
-				return CONSTANT_MethodHandle_info.getInstance(classFileData, offset);
+				res = CONSTANT_MethodHandle_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_MethodType:
-				return CONSTANT_MethodType_info.getInstance(classFileData, offset);
+				res = CONSTANT_MethodType_info.getInstance(classFileData, offset);
+				break;
 			case CONSTANT_InvokeDynamic:
-				return CONSTANT_InvokeDynamic_info.getInstance(classFileData, offset);
+				res = CONSTANT_InvokeDynamic_info.getInstance(classFileData, offset);
+				break;
 			default:
-				return null;
+				return res;
 		}
+		res.offset = offset;
+		return res;
 	}
 	public abstract int getSize();
 	public String getType(){return this.getClass().getName();}
