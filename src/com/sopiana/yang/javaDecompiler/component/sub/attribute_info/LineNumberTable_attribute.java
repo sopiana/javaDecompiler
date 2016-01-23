@@ -25,6 +25,6 @@ public class LineNumberTable_attribute extends attribute_info
 	}
 	public static LineNumberTable_attribute getInstance(attribute_info attrib)
 	{
-		return getInstance(attrib.getAttribute_name_index(), attrib.getAttribute_length(), attrib.getInfo());
+		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
 	}
 }

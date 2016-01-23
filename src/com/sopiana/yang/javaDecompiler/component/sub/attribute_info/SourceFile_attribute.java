@@ -17,7 +17,7 @@ public class SourceFile_attribute extends attribute_info
 	}
 	public static SourceFile_attribute getInstance(attribute_info attrib)
 	{
-		return getInstance(attrib.getAttribute_name_index(), attrib.getAttribute_length(), attrib.getInfo());
+		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
 	}
 	public short getSourcefile_index() { return this.sourcefile_index; }
 }

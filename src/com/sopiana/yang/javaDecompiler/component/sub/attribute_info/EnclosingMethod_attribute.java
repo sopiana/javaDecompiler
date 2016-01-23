@@ -20,7 +20,7 @@ public class EnclosingMethod_attribute extends attribute_info
 	}
 	public static EnclosingMethod_attribute getInstance(attribute_info attrib)
 	{
-		return getInstance(attrib.getAttribute_name_index(), attrib.getAttribute_length(), attrib.getInfo());
+		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
 	}
 	public short getClass_index() { return this.class_index; }
 	public short getMethod_index(){ return this.method_index; }

@@ -288,6 +288,11 @@ public class ClassFile
 					System.out.println("==>"+attrib.getClass().getName());
 				}
 			}
+			System.out.println("Attributes");
+			for(attribute_info attrib:attributes)
+			{
+				System.out.println("==>"+attrib.getClass().getName());
+			}
 		}
 		catch(Exception e)
 		{
@@ -295,4 +300,5 @@ public class ClassFile
 		}
 		return res;
 	}
+
 }
