@@ -1,8 +1,13 @@
+#exclude eclipse project setting
 .project
 .classpath
-bin
-test
 .settings
 .externalToolBuilders
+#exclude output folder
+bin
 build
 doc
+#exclude test folder
+test
+
+
