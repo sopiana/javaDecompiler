@@ -103,8 +103,7 @@ public final class appOption extends OptionParser
 	 * Get the intended output folder inputed by user
 	 * 
 	 * <p>Accessor method for <code>outputPath</code> variable. Stores the intended output folder from given application 
-	 * arguments. When no output folder specified in application parameter, the default output folder will be same folder as 
-	 * the application path</p>
+	 * arguments. When no output folder specified in application parameter, the default output folder will be same as file input path</p>
 	 * @return folder path where the ouput will be stored
 	 */
 	public String getOutputPath()			{ return this.outputPath; }
