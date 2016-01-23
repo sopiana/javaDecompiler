@@ -74,7 +74,7 @@ public class attribute_info extends class_info
 	
 	public short getAttribute_name_index() { return attribute_name_index; }
 	public int getAttribute_length() { return attribute_length; }
-	public byte[] getInfo() { return Arrays.copyOf(info, info.length); }
+	public byte[] getInfo() { return this.info; }
 	
 	public attribute_info getAttribute(String attributeInfo) throws decompilerException
 	{
