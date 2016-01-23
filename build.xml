@@ -6,7 +6,7 @@
     <property name="build.dir"		value="build"/>
     <property name="doc.dir"		value="doc"/>
     <property name="jar.dir"     	value="${build.dir}/jar"/>
-    <property name="main-class"  	value="com.sopiana.yang.javaDecompile.classParser"/>
+    <property name="main-class"  	value="com.sopiana.yang.javaDecompiler.classParser"/>
 
 
 
@@ -38,7 +38,5 @@
         <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
     </target>
 
-    <target name="clean-build" depends="clean,jar"/>
     <target name="main" depends="clean,jar"/>
-
 </project>
