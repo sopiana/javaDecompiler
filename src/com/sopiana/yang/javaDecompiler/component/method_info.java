@@ -49,9 +49,11 @@ public class method_info extends class_info
 	}
     
     public short getAccess_flags() { return access_flags; }
-    public short getName_index() { return name_index; }
-    public short getDescriptor_index() { return descriptor_index; }
-    
+    public int getName_index() { return name_index; }
+    public int getDescriptor_index() { return descriptor_index; }
+	public int getAttributes_count() { return attributes_count; }
+	public attribute_info[] getAttributes() { return attributes; }
+	
     public static String getAccessModifier(short access_flag)
 	{
 		String res="";

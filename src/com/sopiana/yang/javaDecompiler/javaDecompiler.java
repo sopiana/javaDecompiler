@@ -12,8 +12,13 @@ import java.util.zip.ZipFile;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
-
-public class classParser 
+/**
+ * Application main class
+ * 
+ * @author yang.sopiana
+ *
+ */
+public class javaDecompiler 
 {
 	public static void main(String[]args)
 	{
@@ -66,7 +71,6 @@ public class classParser
 			byte data[] = new byte[fileSize];			
 			fis.read(data);
 			classObj = ClassFile.getInstance(data);
-			classObj.parse();
 			return classObj;
 		} 
 		catch (IOException | decompilerException e) 
@@ -104,9 +108,7 @@ public class classParser
 			
 			if(size<=0 || entryName.length()<6 || entryName.lastIndexOf(".class")!=entryName.length()-6)
 				continue;
-			System.out.println(entryName);
 			classObj = getClassObject(fis, size);
-
 		}
 		zipJar.close();
 	}

@@ -98,6 +98,7 @@ public class ClassFile
 			instance.attributes[i] = attribute_info.getInstance(classFileData, offset);
 			offset += instance.attributes[i].getSize();
 		}
+		instance.parse();
 		return instance;
     }
 	
@@ -121,10 +122,12 @@ public class ClassFile
 	
 	public void parse() throws  decompilerException
 	{
-		fixAttributesType();
 		parseThis_Class();
 		parseSuper_Class();
 		parseInterfaces();
+		fixAttributesType();
+		fixFieldAttributesType();
+		fixMethodAttributesType();
 		sourceFile = getSourceFile();
 		System.out.println(toString());
 	}
@@ -204,6 +207,31 @@ public class ClassFile
 		}
 	}
 	
+	private void fixFieldAttributesType() throws decompilerException
+	{
+		String attribInfo;
+		for(int i=0;i<fields.length;++i)
+		{
+			for(int j=0;j<fields[i].getAttributes_count();++j)
+			{
+				attribInfo = getName(fields[i].getAttributes()[j].getAttribute_name_index());
+				fields[i].getAttributes()[j] = fields[i].getAttributes()[j].getAttribute(attribInfo);
+			}
+		}
+	}
+	
+	private void fixMethodAttributesType() throws decompilerException
+	{
+		String attribInfo;
+		for(int i=0;i<methods.length;++i)
+		{
+			for(int j=0;j<methods[i].getAttributes_count();++j)
+			{
+				attribInfo = getName(methods[i].getAttributes()[j].getAttribute_name_index());
+				methods[i].getAttributes()[j] = methods[i].getAttributes()[j].getAttribute(attribInfo);
+			}
+		}
+	}
 	public String getSourceFile() throws decompilerException
 	{
 		for(attribute_info attrib:attributes)
@@ -243,12 +271,22 @@ public class ClassFile
 			{
 				System.out.println(field_info.getAccessModifier(f.getAccess_flags())+" "+
 						getName(f.getName_index())+" "+getName(f.getDescriptor_index()));
+				System.out.println("=>Attribute Length:"+f.getAttributes_count());
+				for(attribute_info attrib:f.getAttributes())
+				{
+					System.out.println("==>"+attrib.getClass().getName());
+				}
 			}
 			System.out.println("Methods");
 			for(method_info m:methods)
 			{
 				System.out.println(method_info.getAccessModifier(m.getAccess_flags())+" "+
 						getName(m.getName_index())+" "+getName(m.getDescriptor_index()));
+				System.out.println("=>Attribute Length:"+m.getAttributes_count());
+				for(attribute_info attrib:m.getAttributes())
+				{
+					System.out.println("==>"+attrib.getClass().getName());
+				}
 			}
 		}
 		catch(Exception e)
