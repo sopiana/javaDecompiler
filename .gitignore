@@ -3,3 +3,6 @@
 bin
 test
 .settings
+.externalToolBuilders
+build
+doc

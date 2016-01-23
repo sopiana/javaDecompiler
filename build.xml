@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="javaDecompiler" basedir="." default="main">
+
+    <property name="src.dir"     	value="src"/>
+    <property name="class.dir"		value="bin"/>
+    <property name="build.dir"		value="build"/>
+    <property name="doc.dir"		value="doc"/>
+    <property name="jar.dir"     	value="${build.dir}/jar"/>
+    <property name="main-class"  	value="com.sopiana.yang.javaDecompile.classParser"/>
+
+
+
+    <target name="clean">
+        <delete dir="${class.dir}"/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${doc.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${class.dir}"/>
+        <javac includeAntRuntime="false" srcdir="${src.dir}" destdir="${class.dir}">
+        </javac> 
+    </target>
+	<target name="javadoc" depends="compile">
+		<mkdir dir="${doc.dir}"/>
+		<javadoc access="protected" sourcepath="${src.dir}" 
+		destdir="${doc.dir}" author="true" version="true" use="true"/>
+	</target>
+    <target name="jar" depends="javadoc">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${class.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+	<target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+    <target name="main" depends="clean,jar"/>
+
+</project>
