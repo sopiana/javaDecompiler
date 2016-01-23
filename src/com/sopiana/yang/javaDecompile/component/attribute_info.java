@@ -2,9 +2,29 @@ package com.sopiana.yang.javaDecompile.component;
 
 import java.util.Arrays;
 
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.AnnotationDefault_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.BootstrapMethods_attribute;
 import com.sopiana.yang.javaDecompile.component.sub.attribute_info.Code_attribute;
 import com.sopiana.yang.javaDecompile.component.sub.attribute_info.ConstantValue_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.Deprecated_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.EnclosingMethod_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.Exceptions_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.InnerClasses_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.LineNumberTable_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.LocalVariableTable_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.LocalVariableTypeTable_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.MethodParameters_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.RuntimeInvisibleAnnotations_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.RuntimeInvisibleParameterAnnotations_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.RuntimeInvisibleTypeAnnotations_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.RuntimeVisibleAnnotations_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.RuntimeVisibleParameterAnnotations_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.RuntimeVisibleTypeAnnotations_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.Signature_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.SourceDebugExtension_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.SourceFile_attribute;
 import com.sopiana.yang.javaDecompile.component.sub.attribute_info.StackMapTable_attribute;
+import com.sopiana.yang.javaDecompile.component.sub.attribute_info.Synthetic_attribute;
 import com.sopiana.yang.javaDecompile.util.Util;
 
 public class attribute_info extends class_info
@@ -64,6 +84,46 @@ public class attribute_info extends class_info
 			return Code_attribute.getInstance(attribute_name_index, attribute_length, info);
 		if(attributeInfo.equals(ATTRIB_STACKMAP_TABLE))
 			return StackMapTable_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeInfo.equals(ATTRIB_EXCEPTIONS))
+			return Exceptions_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_INNERCLASSES))
+			return InnerClasses_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_ENCLOSING_METHOD))
+			return EnclosingMethod_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_SYNTHETIC))
+			return Synthetic_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_SIGNATURE))
+			return Signature_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_SOURCE_FILE))
+			return SourceFile_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_SOURCEDEBUG_EXTENSION))
+			return SourceDebugExtension_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_LINE_NUMBER_TABLE))
+			return LineNumberTable_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_LOCAL_VAR_TABLE))
+			return LocalVariableTable_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_LOCAL_VAR_TYPE_TABLE))
+			return LocalVariableTypeTable_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_DEPRECATED))
+			return Deprecated_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_RUNTIME_VISIBLE_ANNOTATIONs))
+			return RuntimeVisibleAnnotations_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_RUNTIME_INVISIBLE_ANNOTATIONS))
+			return RuntimeInvisibleAnnotations_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_RUNTIME_VISIBLE_PARAM_ANNOTATIONS))
+			return RuntimeVisibleParameterAnnotations_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_RUNTIME_INVISIBLE_PARAM_ANNOTATIONS))
+			return RuntimeInvisibleParameterAnnotations_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_RUNTIME_VISIBLE_TYPE_ANNOTATIONS))
+			return RuntimeVisibleTypeAnnotations_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_RUNTIME_INVISIBLE_TYPE_ANNOTATIONS))
+			return RuntimeInvisibleTypeAnnotations_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_ANNOTATION_DEFAULT))
+			return AnnotationDefault_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_METHOD_PARAMETERS))
+			return MethodParameters_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeInfo.equals(ATTRIB_BOOTSTRAP_METHODS))
+			return BootstrapMethods_attribute.getInstance(attribute_name_index, attribute_length,info);
 		return this;
 	}
 	

@@ -13,7 +13,7 @@ public class ConstantValue_attribute extends attribute_info
 		res.attribute_name_index = attribute_name_index;
 		res.attribute_length = attribute_length;
 		res.constantvalue_index = Util.byte2Short(info);
-		return null;
+		return res;
 		
 	}
 	public short getConstantvalue_index() { return this.constantvalue_index; }
