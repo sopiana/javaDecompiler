@@ -204,8 +204,8 @@ public enum opcodeTable
 	_ifnonnull	((byte)0xc7,"ifnonnull"),
 	_goto_w		((byte)0xc8,"goto_w"),
 	_jsr_w		((byte)0xc9,"jsr_w");
-	public byte opcode;
-	public String mnemonic;
+	public final byte opcode;
+	public final String mnemonic;
 	private opcodeTable(byte opcode,String mnemonic)
 	{
 		this.opcode = opcode;
