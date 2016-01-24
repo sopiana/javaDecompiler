@@ -90,4 +90,14 @@ public class Util {
 		}
 		return i;
 	}
+	
+	public static byte getLowByte(short s)
+	{
+		return (byte)((s&0xFF00)>>8);
+	}
+	
+	public static byte getHighByte(short s)
+	{
+		return (byte)(s&0x00FF);
+	}
 }

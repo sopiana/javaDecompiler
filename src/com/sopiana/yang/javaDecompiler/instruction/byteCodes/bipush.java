@@ -4,23 +4,23 @@ import com.sopiana.yang.javaDecompiler.instruction.instruction;
 import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.instruction.opcodeTable;
 
-public class aload extends instruction
+public class bipush extends instruction
 {
-	public static final opcodeTable ins = opcodeTable._aload;
-	private byte index;
-	public static aload getInstance(byte[]codes, int offset) throws instructionException
+	public static final opcodeTable ins = opcodeTable._bipush;
+	private byte value;
+	public static bipush getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid aload opcode");
-		aload res = new aload();
+			throw new instructionException("supplied code is not valid bipush opcode");
+		bipush res = new bipush();
 		res.offset = offset;
 		res.opcode = codes[offset++];
-		res.index = codes[offset];
+		res.value = codes[offset];
 		return res;
 	}
-	public byte getIndex() { return index; }
-	public byte[] getData() { return new byte[]{opcode,index}; }
+	public byte getValue() { return value; }
+	public byte[] getData() { return new byte[]{opcode,value}; }
 	public int getSize() { return 2; }
 	public String getMnemonic() { return ins.mnemonic; }
-	
+
 }

@@ -4,15 +4,15 @@ import com.sopiana.yang.javaDecompiler.instruction.instruction;
 import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.instruction.opcodeTable;
 
-public class aload_1 extends instruction
+public class castore extends instruction
 {
-	public static final opcodeTable ins = opcodeTable._aload_1;
+	public static final opcodeTable ins = opcodeTable._castore;
 	
-	public static aload_1 getInstance(byte[]codes, int offset) throws instructionException
+	public static castore getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid aload_1 opcode");
-		aload_1 res = new aload_1();
+			throw new instructionException("supplied code is not valid castore opcode");
+		castore res = new castore();
 		res.offset = offset;
 		res.opcode = codes[offset];
 		return res;
@@ -22,3 +22,4 @@ public class aload_1 extends instruction
 	public String getMnemonic() { return ins.mnemonic; }
 
 }
+
