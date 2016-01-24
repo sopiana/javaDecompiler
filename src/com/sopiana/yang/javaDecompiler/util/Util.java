@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.util;
 
-public class Util {
+public class Util 
+{
 	public static short byte2Short(byte[] byteArr)
 	{
 		return byte2Short(byteArr, 0);
@@ -91,13 +92,34 @@ public class Util {
 		return i;
 	}
 	
-	public static byte getLowByte(short s)
+	public static byte getHighByte(short s)
 	{
 		return (byte)((s&0xFF00)>>8);
 	}
 	
-	public static byte getHighByte(short s)
+	public static byte getLowByte(short s)
 	{
 		return (byte)(s&0x00FF);
+	}
+	
+	public static short getHighShort(int i)
+	{
+		return (short)((i&0xFFFF0000)>>16);
+	}
+	
+	public static short getLowShort(int i)
+	{
+		return (short)(i&0x0000FFFF);
+	}
+	
+	public static int intToByteArray(int i, byte[] dest, int offset)
+	{
+		short highShort = getHighShort(i);
+		short lowShort = getLowShort(i);
+		dest[offset++] = Util.getHighByte(highShort);
+		dest[offset++] = Util.getLowByte(highShort);
+		dest[offset++] = Util.getHighByte(lowShort);
+		dest[offset++] = Util.getLowByte(lowShort);
+		return offset+=4;
 	}
 }

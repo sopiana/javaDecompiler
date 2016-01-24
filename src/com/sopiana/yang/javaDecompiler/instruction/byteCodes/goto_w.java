@@ -21,8 +21,8 @@ public class goto_w extends instruction
 	}
 	public int getBranch() { return branch; }
 	public byte[] getData() { 
-		short highShort = (short)((branch&0xFFFF0000)>>16);
-		short lowShort = (short)(branch&0x0000FFFF);
+		short highShort = Util.getHighShort(branch);
+		short lowShort = Util.getLowShort(branch);
 		return new byte[]{opcode,Util.getHighByte((highShort)),Util.getLowByte(highShort),
 				Util.getHighByte((lowShort)),Util.getLowByte(lowShort)}; }
 	public int getSize() { return 5; }
