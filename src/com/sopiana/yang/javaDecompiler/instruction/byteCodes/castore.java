@@ -11,7 +11,7 @@ public class castore extends instruction
 	public static castore getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid castore opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		castore res = new castore();
 		res.offset = offset;
 		res.opcode = codes[offset];

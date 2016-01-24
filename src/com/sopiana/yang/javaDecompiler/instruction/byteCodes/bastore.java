@@ -11,7 +11,7 @@ public class bastore extends instruction
 	public static bastore getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid bastore opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		bastore res = new bastore();
 		res.offset = offset;
 		res.opcode = codes[offset];

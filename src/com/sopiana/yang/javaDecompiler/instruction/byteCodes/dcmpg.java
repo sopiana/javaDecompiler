@@ -11,7 +11,7 @@ public class dcmpg extends instruction
 	public static dcmpg getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid dcmpg opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		dcmpg res = new dcmpg();
 		res.offset = offset;
 		res.opcode = codes[offset];

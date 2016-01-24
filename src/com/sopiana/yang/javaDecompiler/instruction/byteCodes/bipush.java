@@ -11,7 +11,7 @@ public class bipush extends instruction
 	public static bipush getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid bipush opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		bipush res = new bipush();
 		res.offset = offset;
 		res.opcode = codes[offset++];

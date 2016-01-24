@@ -11,7 +11,7 @@ public class dload_1 extends instruction
 	public static dload_1 getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid dload_1 opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		dload_1 res = new dload_1();
 		res.offset = offset;
 		res.opcode = codes[offset];

@@ -12,7 +12,7 @@ public class checkcast extends instruction
 	public static checkcast getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid checkcast opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		checkcast res = new checkcast();
 		res.offset = offset;
 		res.opcode = codes[offset++];

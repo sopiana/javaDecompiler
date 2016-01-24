@@ -7,8 +7,8 @@
     <property name="doc.dir"		value="doc"/>
     <property name="jar.dir"     	value="${build.dir}/jar"/>
     <property name="main-class"  	value="com.sopiana.yang.javaDecompiler.javaDecompiler"/>
-	<!--<property name="jar.testFile"	value="test/jsoup-1.8.3.jar"/>-->
-	<property name="jar.testFile"	value="test/javaDecompiler.class"/>
+	<property name="jar.testFile"	value="test/jsoup-1.8.3.jar"/>
+	<!--<property name="jar.testFile"	value="test/javaDecompiler.class"/>-->
 
     <target name="clean">
         <delete dir="${class.dir}"/>

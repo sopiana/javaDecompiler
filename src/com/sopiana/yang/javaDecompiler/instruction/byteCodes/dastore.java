@@ -11,7 +11,7 @@ public class dastore extends instruction
 	public static dastore getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid dastore opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		dastore res = new dastore();
 		res.offset = offset;
 		res.opcode = codes[offset];

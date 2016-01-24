@@ -11,7 +11,7 @@ public class aastore extends instruction
 	public static aastore getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid aastore opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		aastore res = new aastore();
 		res.offset = offset;
 		res.opcode = codes[offset];

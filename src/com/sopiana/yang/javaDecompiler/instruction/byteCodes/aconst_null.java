@@ -11,7 +11,7 @@ public class aconst_null extends instruction
 	public static aconst_null getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid aconst_null opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		aconst_null res = new aconst_null();
 		res.offset = offset;
 		res.opcode = codes[offset];

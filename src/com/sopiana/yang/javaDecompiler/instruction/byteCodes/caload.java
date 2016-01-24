@@ -11,7 +11,7 @@ public class caload extends instruction
 	public static caload getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid caload opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		caload res = new caload();
 		res.offset = offset;
 		res.opcode = codes[offset];

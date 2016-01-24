@@ -4,21 +4,21 @@ import com.sopiana.yang.javaDecompiler.instruction.instruction;
 import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.instruction.opcodeTable;
 
-public class aload_1 extends instruction
-{
-	public static final opcodeTable ins = opcodeTable._aload_1;
-	
-	public static aload_1 getInstance(byte[]codes, int offset) throws instructionException
+public class dstore extends instruction{
+	public static final opcodeTable ins = opcodeTable._dstore;
+	private byte index;
+	public static dstore getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
 			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
-		aload_1 res = new aload_1();
+		dstore res = new dstore();
 		res.offset = offset;
-		res.opcode = codes[offset];
+		res.opcode = codes[offset++];
+		res.index = codes[offset];
 		return res;
 	}
-	public byte[] getData() { return new byte[]{opcode}; }
-	public int getSize() { return 1; }
+	public byte getIndex() { return index; }
+	public byte[] getData() { return new byte[]{opcode,index}; }
+	public int getSize() { return 2; }
 	public String getMnemonic() { return ins.mnemonic; }
-
 }

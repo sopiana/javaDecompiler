@@ -11,7 +11,7 @@ public class dcmpl extends instruction
 	public static dcmpl getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid dcmpl opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		dcmpl res = new dcmpl();
 		res.offset = offset;
 		res.opcode = codes[offset];

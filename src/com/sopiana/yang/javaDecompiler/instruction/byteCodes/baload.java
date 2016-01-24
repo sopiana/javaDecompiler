@@ -11,7 +11,7 @@ public class baload extends instruction
 	public static baload getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid baload opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		baload res = new baload();
 		res.offset = offset;
 		res.opcode = codes[offset];

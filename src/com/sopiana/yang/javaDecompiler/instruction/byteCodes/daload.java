@@ -11,7 +11,7 @@ public class daload extends instruction
 	public static daload getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid daload opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		daload res = new daload();
 		res.offset = offset;
 		res.opcode = codes[offset];

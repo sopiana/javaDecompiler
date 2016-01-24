@@ -11,7 +11,7 @@ public class athrow extends instruction
 	public static athrow getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid athrow opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		athrow res = new athrow();
 		res.offset = offset;
 		res.opcode = codes[offset];

@@ -11,7 +11,7 @@ public class aload_3 extends instruction
 	public static aload_3 getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid aload_3 opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		aload_3 res = new aload_3();
 		res.offset = offset;
 		res.opcode = codes[offset];

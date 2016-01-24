@@ -11,7 +11,7 @@ public class dconst_1 extends instruction
 	public static dconst_1 getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid dconst_1 opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		dconst_1 res = new dconst_1();
 		res.offset = offset;
 		res.opcode = codes[offset];

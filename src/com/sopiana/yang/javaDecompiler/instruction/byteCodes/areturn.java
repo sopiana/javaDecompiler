@@ -11,7 +11,7 @@ public class areturn extends instruction
 	public static areturn getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid areturn opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		areturn res = new areturn();
 		res.offset = offset;
 		res.opcode = codes[offset];

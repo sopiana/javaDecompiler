@@ -11,7 +11,7 @@ public class d2l extends instruction
 	public static d2l getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid d2l opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		d2l res = new d2l();
 		res.offset = offset;
 		res.opcode = codes[offset];

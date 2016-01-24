@@ -11,7 +11,7 @@ public class ddiv extends instruction
 	public static ddiv getInstance(byte[]codes, int offset) throws instructionException
 	{
 		if(codes[offset]!=ins.opcode)
-			throw new instructionException("supplied code is not valid ddiv opcode");
+			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		ddiv res = new ddiv();
 		res.offset = offset;
 		res.opcode = codes[offset];
