@@ -8,7 +8,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
 public class lookupswitch extends instruction
 {
 	public static final opcodeTable ins = opcodeTable._lookupswitch;
-	private int padding;
+	private int paddingSize;
 	private int defaultbyte;
 	private int npairs;
 	private int[][]matchOffset_pairs;
@@ -18,8 +18,9 @@ public class lookupswitch extends instruction
 			throw new instructionException("supplied code is not valid "+ins.mnemonic+" opcode");
 		lookupswitch res = new lookupswitch();
 		res.offset = offset;
-		res.opcode = codes[offset];
-		res.padding = Util.byte2Int(codes, offset); offset+=4;
+		res.opcode = codes[offset++];
+		res.paddingSize = 4-(offset%4);
+		offset+=res.paddingSize;
 		res.defaultbyte = Util.byte2Int(codes, offset); offset+=4;
 		res.npairs = Util.byte2Int(codes, offset);offset+=4;
 		res.matchOffset_pairs = new int[res.npairs][2];
@@ -30,7 +31,7 @@ public class lookupswitch extends instruction
 		}
 		return res;
 	}
-	public int getPadding() { return padding; }
+	public int getPaddingSize() { return paddingSize; }
 	public int getDefaultbyte() { return defaultbyte; }
 	public int getNpairs() { return npairs; }
 	public int[][]getMatchOffset_pairs() { return matchOffset_pairs; }
@@ -39,7 +40,9 @@ public class lookupswitch extends instruction
 		byte[] res = new byte[getSize()];
 		int offset = 0;
 		res[offset++] = opcode;
-		offset = Util.intToByteArray(padding, res, offset);
+		for(int i=0;i<paddingSize;++i)
+			res[offset++] =0;
+		//offset = Util.intToByteArray(padding, res, offset);
 		offset = Util.intToByteArray(defaultbyte, res, offset);
 		offset = Util.intToByteArray(npairs, res, offset);
 		for(int i=0;i<npairs;++i)
@@ -50,7 +53,7 @@ public class lookupswitch extends instruction
 		return res;
 	}
 	public int getSize() {
-		return 13+npairs*8;
+		return 9+paddingSize+npairs*8;
 	}
 	public String getMnemonic() { return ins.mnemonic; }
 }
