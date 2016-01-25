@@ -2,10 +2,13 @@ package com.sopiana.yang.javaDecompiler.component;
 
 import java.util.ArrayList;
 
+import javax.jws.Oneway;
+
 import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.SourceFile_attribute;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Class_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Void;
+import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
  * <code>ClassFile</code> represents Java Virtual Machine class file structure 
@@ -198,21 +201,21 @@ public class ClassFile
 		instance.fields = new field_info[instance.fields_count&0xFFFF];
 		for(int i=0;i<instance.fields.length;++i)
 		{
-			instance.fields[i] = field_info.getInstance(classFileData, offset);
+			instance.fields[i] = field_info.getInstance(classFileData, offset, instance.constant_pool);
 			offset += instance.fields[i].getSize();
 		}
 		instance.methods_count = Util.byte2Short(classFileData,offset);offset+=2;
 		instance.methods = new method_info[instance.methods_count&0xFFFF];
 		for(int i=0;i<instance.methods.length;++i)
 		{
-			instance.methods[i] = method_info.getInstance(classFileData, offset);
+			instance.methods[i] = method_info.getInstance(classFileData, offset, instance.constant_pool);
 			offset += instance.methods[i].getSize();
 		}
 		instance.attributes_count = Util.byte2Short(classFileData,offset);offset+=2;
 		instance.attributes = new attribute_info[instance.attributes_count&0xFFFF];
 		for(int i=0;i<instance.attributes.length;++i)
 		{
-			instance.attributes[i] = attribute_info.getInstance(classFileData, offset);
+			instance.attributes[i] = attribute_info.getInstance(classFileData, offset, instance.constant_pool);
 			offset += instance.attributes[i].getSize();
 		}
 		instance.parse();
@@ -354,14 +357,18 @@ public class ClassFile
 	//TODO move the methods to other file	
 	public void parse() throws  decompilerException
 	{
-		parseThis_Class();
-		parseSuper_Class();
-		parseInterfaces();
-		fixAttributesType();
-		fixFieldAttributesType();
-		fixMethodAttributesType();
-		sourceFile = getSourceFile();
-		System.out.println(toString()); //TODO remove this command
+		try
+		{
+			parseThis_Class();
+			parseSuper_Class();
+			parseInterfaces();
+			sourceFile = getSourceFile();
+			System.out.println(toString()); //TODO remove this command
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	public static String getAccessModifier(short access_flag)
 	{
@@ -409,14 +416,7 @@ public class ClassFile
 		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Class_info");
 	}
 	
-	private String getName(int index) throws decompilerException
-	{
-		if(constant_pool[index] instanceof CONSTANT_Utf8_info)
-		{
-			return ((CONSTANT_Utf8_info)constant_pool[index]).getString().replace("/", ".");
-		}
-		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Utf8_info");
-	}
+	
 	
 	private void parseThis_Class() throws decompilerException
 	{
@@ -444,48 +444,13 @@ public class ClassFile
 		}
 	}
 	
-	private void fixAttributesType() throws decompilerException
-	{
-		String attribInfo;
-		for(int i=0;i<attributes.length;++i)
-		{
-			attribInfo = getName(attributes[i].getAttribute_name_index());
-			attributes[i] = attributes[i].getAttribute(attribInfo);
-		}
-	}
-	
-	private void fixFieldAttributesType() throws decompilerException
-	{
-		String attribInfo;
-		for(int i=0;i<fields.length;++i)
-		{
-			for(int j=0;j<fields[i].getAttributes_count();++j)
-			{
-				attribInfo = getName(fields[i].getAttributes()[j].getAttribute_name_index());
-				fields[i].getAttributes()[j] = fields[i].getAttributes()[j].getAttribute(attribInfo);
-			}
-		}
-	}
-	
-	private void fixMethodAttributesType() throws decompilerException
-	{
-		String attribInfo;
-		for(int i=0;i<methods.length;++i)
-		{
-			for(int j=0;j<methods[i].getAttributes_count();++j)
-			{
-				attribInfo = getName(methods[i].getAttributes()[j].getAttribute_name_index());
-				methods[i].getAttributes()[j] = methods[i].getAttributes()[j].getAttribute(attribInfo);
-			}
-		}
-	}
-	public String getSourceFile() throws decompilerException
+	public String getSourceFile() throws decompilerException 
 	{
 		for(attribute_info attrib:attributes)
 		{
 			if(attrib instanceof SourceFile_attribute)
 			{
-				return getName(((SourceFile_attribute)attrib).getSourcefile_index());
+				return cp_info.getName(((SourceFile_attribute)attrib).getSourcefile_index(),constant_pool);
 			}
 		}
 		return className;
@@ -517,7 +482,7 @@ public class ClassFile
 			for(field_info f:fields)
 			{
 				System.out.println(field_info.getAccessModifier(f.getAccess_flags())+" "+
-						getName(f.getName_index())+" "+getName(f.getDescriptor_index()));
+						cp_info.getName(f.getName_index(),constant_pool)+" "+cp_info.getName(f.getDescriptor_index(),constant_pool));
 				System.out.println("=>Attribute Length:"+f.getAttributes_count());
 				for(attribute_info attrib:f.getAttributes())
 				{
@@ -528,18 +493,18 @@ public class ClassFile
 			for(method_info m:methods)
 			{
 				System.out.println(method_info.getAccessModifier(m.getAccess_flags())+" "+
-						getName(m.getName_index())+" "+getName(m.getDescriptor_index()));
+						cp_info.getName(m.getName_index(),constant_pool));
 				System.out.println("=>Attribute Length:"+m.getAttributes_count());
 				for(attribute_info attrib:m.getAttributes())
 				{
 					System.out.println("==>"+attrib.getClass().getName());
 				}
 			}
-			System.out.println("Attributes");
+			/*System.out.println("Attributes");
 			for(attribute_info attrib:attributes)
 			{
 				System.out.println("==>"+attrib.getClass().getName());
-			}
+			}*/
 		}
 		catch(Exception e)
 		{

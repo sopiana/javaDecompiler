@@ -16,9 +16,6 @@ public class Signature_attribute extends attribute_info
 		return res;
 		
 	}
-	public static Signature_attribute getInstance(attribute_info attrib)
-	{
-		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
-	}
+	
 	public short getSignature_index() { return this.signature_index; }
 }

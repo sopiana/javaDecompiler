@@ -24,10 +24,6 @@ public class Exceptions_attribute extends attribute_info
 		}
 		return res;
 	}
-	public static Exceptions_attribute getInstance(attribute_info attrib)
-	{
-		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
-	}
 	public short number_of_exceptions() { return number_of_exceptions; }
 	public short[] exception_index_table() { return Arrays.copyOf(exception_index_table, number_of_exceptions); }
 }

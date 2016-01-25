@@ -27,7 +27,7 @@
 		destdir="${doc.dir}" author="true" version="true" use="false" nodeprecatedlist="true" 
 		noqualifier="java.*:javax.*:com.sun.*"/>
 	</target>
-    <target name="jar" depends="javadoc">
+    <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${class.dir}">
             <manifest>

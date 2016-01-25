@@ -12,11 +12,11 @@ public abstract class instruction
 	public abstract int getSize();
 	public abstract String getMnemonic();
 	
-	public instruction getByteCode(byte[]codes, int offset) throws instructionException
+	public static instruction getByteCode(byte[]codes, int offset) throws instructionException
 	{
 		try
 		{
-			byte opcode = codes[offset];
+			int opcode = codes[offset]&0xFF;
 			switch(opcodeTable.values()[opcode])
 			{
 				case _nop:

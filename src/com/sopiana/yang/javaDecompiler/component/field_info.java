@@ -20,7 +20,7 @@ public class field_info extends class_info
 	private short attributes_count;
 	private attribute_info attributes[];		//attributes_count
 	
-    public static field_info getInstance(byte[]classFileData, int offset)
+    public static field_info getInstance(byte[]classFileData, int offset,cp_info[] constant_pool) throws decompilerException
 	{
     	field_info res = new field_info();
     	res.offset = offset;
@@ -31,7 +31,7 @@ public class field_info extends class_info
     	res.attributes = new attribute_info[res.attributes_count];
     	for(int i=0;i<res.attributes_count;++i)
     	{
-    		res.attributes[i] = attribute_info.getInstance(classFileData, offset);
+    		res.attributes[i] = attribute_info.getInstance(classFileData, offset,constant_pool);
     		offset += res.attributes[i].getSize();
     	}
     	return res;

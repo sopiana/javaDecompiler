@@ -14,9 +14,5 @@ public class SourceDebugExtension_attribute extends attribute_info{
 		res.debug_extension = Arrays.copyOf(info, attribute_length);
 		return res;
 	}
-	public byte[] getDebug_extension() { return Arrays.copyOf(debug_extension, attribute_length); }
-	public static SourceDebugExtension_attribute getInstance(attribute_info attrib)
-	{
-		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
-	}
+	public byte[] getDebug_extension() { return debug_extension;}
 }

@@ -1,5 +1,8 @@
 package com.sopiana.yang.javaDecompiler.component;
 
+import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.Code_attribute;
+import com.sopiana.yang.javaDecompiler.instruction.instruction;
+import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class method_info extends class_info
@@ -23,18 +26,20 @@ public class method_info extends class_info
 	private short attributes_count;
 	private attribute_info attributes[];	//attributes_count
 
-	public static method_info getInstance(byte[]classFileData, int offset)
+	public static method_info getInstance(byte[]classFileData, int offset,cp_info[] contant_pool) throws decompilerException
 	{
 		method_info res = new method_info();
 		res.offset = offset;
     	res.access_flags = Util.byte2Short(classFileData,offset);offset+=2;
+    	//System.out.format(">>>>%02x",classFileData[offset]);
+    	//System.out.format(" %02x\n",classFileData[offset+1]);
     	res.name_index = Util.byte2Short(classFileData,offset);offset+=2;
     	res.descriptor_index = Util.byte2Short(classFileData,offset);offset+=2;
     	res.attributes_count = Util.byte2Short(classFileData,offset);offset+=2;
     	res.attributes = new attribute_info[res.attributes_count];
     	for(int i=0;i<res.attributes_count;++i)
     	{
-    		res.attributes[i] = attribute_info.getInstance(classFileData, offset);
+    		res.attributes[i] = attribute_info.getInstance(classFileData, offset, contant_pool);
     		offset += res.attributes[i].getSize();
     	}
     	return res;
@@ -49,7 +54,7 @@ public class method_info extends class_info
 	}
     
     public short getAccess_flags() { return access_flags; }
-    public int getName_index() { return name_index; }
+    public int getName_index() { return (name_index&0xFFFF); }
     public int getDescriptor_index() { return descriptor_index; }
 	public int getAttributes_count() { return attributes_count; }
 	public attribute_info[] getAttributes() { return attributes; }
@@ -77,4 +82,38 @@ public class method_info extends class_info
 			res += "strictfp ";
 		return res;
 	}
+    
+    public void parseByteCode()
+    {
+    	for(attribute_info attr:attributes)
+    	{
+    		
+    		if(attr instanceof Code_attribute)
+    		{
+    			Code_attribute codeAttr = (Code_attribute)attr;
+    			byte[] code = codeAttr.getCode();
+    			int offset=0;
+    			try 
+    			{
+    			while(offset<code.length)
+    			{
+    				instruction ins;
+					
+						ins = instruction.getByteCode(code, offset);
+					
+	    				System.out.println(ins.getMnemonic());
+	    				offset+=ins.getSize();
+					} 
+					
+    			}
+    		catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				System.out.println("??Unknown Instruction "+String.format("%02x ", code[offset]));
+				break;
+			}
+    		}
+    		
+    	}
+    }
 }

@@ -1,18 +1,22 @@
 package com.sopiana.yang.javaDecompiler;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
+import java.util.List;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
+
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.FileHeader;
 /**
  * Java Decompiler Main Class
  * 
@@ -91,8 +95,9 @@ public class javaDecompiler
 	 * @param fis class file input stream
 	 * @param fileSize the size of file
 	 * @return <code>ClassFile</code> object, representing the inputed inputstream in Java Virtual Machine class file structure
+	 * @throws decompilerException 
 	 */
-	public static ClassFile getClassObject(InputStream fis,int fileSize)
+	public static ClassFile getClassObject(InputStream fis,int fileSize) throws decompilerException
 	{
 		try 
 		{
@@ -102,7 +107,7 @@ public class javaDecompiler
 			classObj = ClassFile.getInstance(data);
 			return classObj;
 		} 
-		catch (IOException | decompilerException e) 
+		catch (IOException e) 
 		{
 			e.printStackTrace();
 			System.exit(0);
@@ -145,25 +150,43 @@ public class javaDecompiler
 	 * @throws IOException if .jar file can't be read, due to access conditions.
 	 * @throws decompilerException if the .class File has invalid Java Virtual Machine .class format
 	 */
-	public static void processJarFile(File jarFile) throws ZipException, IOException, decompilerException
+	public static void processJarFile(File jarFile) throws IOException, decompilerException, ZipException
 	{
-		ArrayList<ClassFile>classesObj = new ArrayList<ClassFile>();
-		int size = 0;
-		
-		ZipFile zipJar = new ZipFile(jarFile); 
-		Enumeration<? extends ZipEntry> entries = zipJar.entries();
-		while(entries.hasMoreElements())
+		try 
 		{
-			ZipEntry zipEntry = entries.nextElement();
-			String entryName = zipEntry.getName();
-			InputStream fis = zipJar.getInputStream(zipEntry);
-			size = (int)zipEntry.getSize();
-
-			if(size<=0 || entryName.length()<6 || entryName.lastIndexOf(".class")!=entryName.length()-6)
-				continue;
-			classesObj.add(getClassObject(fis, size));
-			//TODO: generate .java and manifest file
+			String jarName = jarFile.getAbsolutePath();
+			String tempFolder = jarName.substring(0,jarName.lastIndexOf("\\")+1)+"out\\";
+			ZipFile zipFile = new ZipFile(jarName);
+			int size = 0;
+			InputStream fis = null;
+			ClassFile classObj;
+			ArrayList<String> classFiles = new ArrayList<>();
+			// Get the list of file headers from the zip file
+			@SuppressWarnings("rawtypes")
+			List fileHeaderList = zipFile.getFileHeaders();
+			
+			for (int i = 0; i < fileHeaderList.size(); i++) {
+				FileHeader fileHeader = (FileHeader)fileHeaderList.get(i);
+				String entryName = fileHeader.getFileName();
+				if(entryName.length()<6 || entryName.lastIndexOf(".class")!=entryName.length()-6)
+					continue;
+				classFiles.add(tempFolder+entryName);
+			}
+			// Extracts all files to the path specified
+			zipFile.extractAll(tempFolder);
+			for(String classFileName:classFiles)
+			{
+				jarFile = new File(classFileName);
+				size = (int)(jarFile.length());
+				if(size<0)
+					continue;
+				fis = new FileInputStream(jarFile);
+				classObj = getClassObject(fis, size);
+				fis.close();
+			}
+			
+		} catch (ZipException e) {
+			e.printStackTrace();
 		}
-		zipJar.close();
 	}
 }

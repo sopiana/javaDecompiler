@@ -24,8 +24,4 @@ public class RuntimeInvisibleTypeAnnotations_attribute extends attribute_info
 		}
 		return res;
 	}
-	public static RuntimeInvisibleTypeAnnotations_attribute getInstance(attribute_info attrib) throws decompilerException
-	{
-		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
-	}
 }

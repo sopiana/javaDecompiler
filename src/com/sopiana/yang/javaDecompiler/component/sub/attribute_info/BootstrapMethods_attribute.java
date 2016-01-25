@@ -7,8 +7,6 @@ import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class BootstrapMethods_attribute extends attribute_info
 {
-	private short attribute_name_index;
-	private int attribute_length;
 	private short num_bootstrap_methods;
 	private bootstrap_methods_info bootstrap_methods[];	//num_bootstrap_methods
 	public static BootstrapMethods_attribute getInstance(short attribute_name_index, int attribute_length, byte[]info) throws decompilerException
@@ -26,8 +24,4 @@ public class BootstrapMethods_attribute extends attribute_info
  		}
  		return res;
  	}
-	public static BootstrapMethods_attribute getInstance(attribute_info attrib) throws decompilerException
-	{
-		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
-	}
 }

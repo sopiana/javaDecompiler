@@ -157,16 +157,65 @@ public class attribute_info extends class_info
      * use <code>getAttribute</code> method after getting the instance.</p>
      * @param classFileData class file data in array of byte
      * @param offset start offset where the <code>attribute_info</code> structure starts
+     * @param constant_pool <code>constant_pool</code> entry of a class
      * @return abstract <code>attribute_info</code> instance, to get specific attribute, use <code>getAttribute</code> method.
+     * @throws decompilerException if supplied <code>classFileData</code> is not a Valid attribute info
      */
-	public static attribute_info getInstance(byte[]classFileData, int offset)
+	public static attribute_info getInstance(byte[]classFileData, int offset, cp_info[] constant_pool) throws decompilerException
 	{
-		attribute_info res = new attribute_info();
-		res.offset = offset;
-		res.attribute_name_index = Util.byte2Short(classFileData,offset);offset+=2;
-		res.attribute_length = Util.byte2Int(classFileData,offset);offset+=4;
-		res.info = Arrays.copyOfRange(classFileData, offset, offset+res.attribute_length);
-		return res;
+		short attribute_name_index = Util.byte2Short(classFileData,offset);offset+=2;
+		int attribute_length = Util.byte2Int(classFileData,offset);offset+=4;
+		byte[] info = Arrays.copyOfRange(classFileData, offset, offset+attribute_length);
+		String attributeName = cp_info.getName(attribute_name_index&0xFFFF, constant_pool);
+		
+		if(attributeName.equals(ATTRIB_CONSTANT_VALUE))
+			return ConstantValue_attribute.getInstance(attribute_name_index, attribute_length,info);
+		if(attributeName.equals(ATTRIB_CODE))
+			return Code_attribute.getInstance(attribute_name_index, attribute_length, info, constant_pool);
+		if(attributeName.equals(ATTRIB_STACKMAP_TABLE))
+			return StackMapTable_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_EXCEPTIONS))
+			return Exceptions_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_INNERCLASSES))
+			return InnerClasses_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_ENCLOSING_METHOD))
+			return EnclosingMethod_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_SYNTHETIC))
+			return Synthetic_attribute.getInstance(attribute_name_index, attribute_length);
+		if(attributeName.equals(ATTRIB_SIGNATURE))
+			return Signature_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_SOURCE_FILE))
+			return SourceFile_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_SOURCEDEBUG_EXTENSION))
+			return SourceDebugExtension_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_LINE_NUMBER_TABLE))
+			return LineNumberTable_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_LOCAL_VAR_TABLE))
+			return LocalVariableTable_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_LOCAL_VAR_TYPE_TABLE))
+			return LocalVariableTypeTable_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_DEPRECATED))
+			return Deprecated_attribute.getInstance(attribute_name_index, attribute_length);
+		if(attributeName.equals(ATTRIB_RUNTIME_VISIBLE_ANNOTATIONs))
+			return RuntimeVisibleAnnotations_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_RUNTIME_INVISIBLE_ANNOTATIONS))
+			return RuntimeInvisibleAnnotations_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_RUNTIME_VISIBLE_PARAM_ANNOTATIONS))
+			return RuntimeVisibleParameterAnnotations_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_RUNTIME_INVISIBLE_PARAM_ANNOTATIONS))
+			return RuntimeInvisibleParameterAnnotations_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_RUNTIME_VISIBLE_TYPE_ANNOTATIONS))
+			return RuntimeVisibleTypeAnnotations_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_RUNTIME_INVISIBLE_TYPE_ANNOTATIONS))
+			return RuntimeInvisibleTypeAnnotations_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_ANNOTATION_DEFAULT))
+			return AnnotationDefault_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_METHOD_PARAMETERS))
+			return MethodParameters_attribute.getInstance(attribute_name_index, attribute_length, info);
+		if(attributeName.equals(ATTRIB_BOOTSTRAP_METHODS))
+			return BootstrapMethods_attribute.getInstance(attribute_name_index, attribute_length, info);
+		
+		throw new decompilerException("Unknown attributes name: "+ attributeName);
 	}
 	/**
 	 * Return size of an attribute.
@@ -206,65 +255,5 @@ public class attribute_info extends class_info
 	 * @return <code>info</code> field value
 	 */
 	public byte[] getInfo() { return this.info; }
-	
-	/**
-	 * Get actual attribute type instance according to attribute supplied attribute name 
-	 * 
-	 * <code>attributeName</code> should be one of 23 predefined attributes in Java Virtual Machine Specifications, otherwise
-	 * the method will return the same object.
-	 * @param attributeName attribute name string get from class <code>constant_pool</code> entry at <code>attribute_name_index</code>
-	 * @return one of Java Virtual Machine predefined attribute object or same object if <code>attributeName</code> is not recognized
-	 * @throws decompilerException if the <code>info</code> is not in valid format of specific attribute type
-	 */
-	public attribute_info getAttribute(String attributeName) throws decompilerException
-	{
-		if(attributeName.equals(ATTRIB_CONSTANT_VALUE))
-			return ConstantValue_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_CODE))
-			return Code_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_STACKMAP_TABLE))
-			return StackMapTable_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_EXCEPTIONS))
-			return Exceptions_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_INNERCLASSES))
-			return InnerClasses_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_ENCLOSING_METHOD))
-			return EnclosingMethod_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_SYNTHETIC))
-			return Synthetic_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_SIGNATURE))
-			return Signature_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_SOURCE_FILE))
-			return SourceFile_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_SOURCEDEBUG_EXTENSION))
-			return SourceDebugExtension_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_LINE_NUMBER_TABLE))
-			return LineNumberTable_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_LOCAL_VAR_TABLE))
-			return LocalVariableTable_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_LOCAL_VAR_TYPE_TABLE))
-			return LocalVariableTypeTable_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_DEPRECATED))
-			return Deprecated_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_RUNTIME_VISIBLE_ANNOTATIONs))
-			return RuntimeVisibleAnnotations_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_RUNTIME_INVISIBLE_ANNOTATIONS))
-			return RuntimeInvisibleAnnotations_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_RUNTIME_VISIBLE_PARAM_ANNOTATIONS))
-			return RuntimeVisibleParameterAnnotations_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_RUNTIME_INVISIBLE_PARAM_ANNOTATIONS))
-			return RuntimeInvisibleParameterAnnotations_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_RUNTIME_VISIBLE_TYPE_ANNOTATIONS))
-			return RuntimeVisibleTypeAnnotations_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_RUNTIME_INVISIBLE_TYPE_ANNOTATIONS))
-			return RuntimeInvisibleTypeAnnotations_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_ANNOTATION_DEFAULT))
-			return AnnotationDefault_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_METHOD_PARAMETERS))
-			return MethodParameters_attribute.getInstance(this);
-		if(attributeName.equals(ATTRIB_BOOTSTRAP_METHODS))
-			return BootstrapMethods_attribute.getInstance(this);
-		return this;
-	}
 	
 }

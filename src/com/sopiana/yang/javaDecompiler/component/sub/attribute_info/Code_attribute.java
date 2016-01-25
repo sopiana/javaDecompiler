@@ -3,6 +3,8 @@ package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 import java.util.Arrays;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
+import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.sub.exception_table_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -17,7 +19,7 @@ public class Code_attribute extends attribute_info
  	private short attributes_count;
  	private attribute_info attributes[];			//attributes_count
  	
- 	public static Code_attribute getInstance(short attribute_name_index, int attribute_length, byte[]info)
+ 	public static Code_attribute getInstance(short attribute_name_index, int attribute_length, byte[]info,cp_info[] constant_pool) throws decompilerException
  	{
  		int offset = 0;
  		Code_attribute res = new Code_attribute();
@@ -38,14 +40,10 @@ public class Code_attribute extends attribute_info
  		res.attributes = new attribute_info[res.attributes_count];
  		for(int i=0;i<res.attributes_count;++i)
  		{
- 			res.attributes[i] = attribute_info.getInstance(info, offset);
+ 			res.attributes[i] = attribute_info.getInstance(info, offset,constant_pool);
  			offset += res.attributes[i].getSize();
  		}
  		return res;
  	}
- 	
- 	public static Code_attribute getInstance(attribute_info attrib)
-	{
-		return getInstance((short)(attrib.getAttribute_name_index()), attrib.getAttribute_length(), attrib.getInfo());
-	}
+ 	public byte[] getCode() { return code; }
 }

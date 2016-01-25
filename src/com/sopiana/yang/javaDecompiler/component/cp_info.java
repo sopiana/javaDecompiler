@@ -34,6 +34,16 @@ public abstract class cp_info extends class_info{
 	
 	protected byte tag;
 	
+	public static String getName(int index,cp_info[]constant_pool) throws decompilerException
+	{
+		if(constant_pool[index] instanceof CONSTANT_Utf8_info)
+		{
+			return ((CONSTANT_Utf8_info)constant_pool[index]).getString().replace("/", ".");
+		}
+		System.out.println("???index= "+index+" ==>"+constant_pool[index].getClass().getName());
+		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Utf8_info");
+	}
+	
 	public static cp_info getInstance(byte[]classFileData, int offset)
 	{
 		cp_info res=null;
