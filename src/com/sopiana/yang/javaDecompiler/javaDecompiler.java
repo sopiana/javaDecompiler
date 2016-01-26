@@ -1,14 +1,11 @@
 package com.sopiana.yang.javaDecompiler;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
@@ -95,7 +92,7 @@ public class javaDecompiler
 	 * @param fis class file input stream
 	 * @param fileSize the size of file
 	 * @return <code>ClassFile</code> object, representing the inputed inputstream in Java Virtual Machine class file structure
-	 * @throws decompilerException 
+	 * @throws decompilerException if data in inputstream is not valid  <code>ClassFile</code> format
 	 */
 	public static ClassFile getClassObject(InputStream fis,int fileSize) throws decompilerException
 	{
@@ -146,9 +143,10 @@ public class javaDecompiler
 	 * will be processed to get .java file.</p>
 	 * 
 	 * @param jarFile <code>File</code> object which handle the .jar File
+	 * 
+	 * @exception IOException if .jar file can't be read, due to access conditions.
+	 * @exception decompilerException if the .class File has invalid Java Virtual Machine .class format
 	 * @throws ZipException if .jar file is not in valid deflated (.zip) format
-	 * @throws IOException if .jar file can't be read, due to access conditions.
-	 * @throws decompilerException if the .class File has invalid Java Virtual Machine .class format
 	 */
 	public static void processJarFile(File jarFile) throws IOException, decompilerException, ZipException
 	{

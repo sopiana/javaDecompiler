@@ -45,5 +45,13 @@ public class Code_attribute extends attribute_info
  		}
  		return res;
  	}
- 	public byte[] getCode() { return code; }
+ 	
+ 	public short getMax_stack() { return max_stack; }
+ 	public short getMax_locals() { return max_locals; }
+	public int getCode_length() { return code_length; }
+	public byte[] getCode() { return code; }
+	public short getException_table_length() { return exception_table_length; }
+	public exception_table_info[] getException_table() { return exception_table; }
+	public short getAttributes_count() { return attributes_count; }
+	public attribute_info[] getAttributes() { return attributes; }
 }

@@ -28,9 +28,13 @@
 		<mkdir dir="${doc.dir}"/>
 		<javadoc access="package" sourcepath="${src.dir}" 
 		destdir="${doc.dir}" author="true" version="true" use="false" nodeprecatedlist="true" 
-		noqualifier="java.*:javax.*:com.sun.*"/>
+		noqualifier="java.*:javax.*:com.sun.*">
+			<classpath>
+	    	        <pathelement path="lib/zip4j_1.3.2.jar"/>
+	    	 </classpath>
+		</javadoc>
 	</target>
-    <target name="jar" depends="compile">
+    <target name="jar" depends="javadoc">
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${class.dir}">
         	 <zipgroupfileset dir="lib" includes="zip4j_1.3.2.jar" />

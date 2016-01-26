@@ -411,7 +411,7 @@ public class ClassFile
 		
 			if(constant_pool[nameIndex] instanceof CONSTANT_Utf8_info)
 			{
-				return ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString().replace("/", ".");
+				return ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString();
 			}
 			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
 		}
@@ -423,15 +423,15 @@ public class ClassFile
 	private void parseThis_Class() throws decompilerException
 	{
 		packageName = getClassName(this_class);
-		className = packageName.substring(packageName.lastIndexOf(".")+1);
-		packageName = packageName.substring(0, packageName.lastIndexOf("."));
+		className = packageName.substring(packageName.lastIndexOf("/")+1);
+		packageName = packageName.substring(0, packageName.lastIndexOf("/"));
 	}
 	
 	private void parseSuper_Class() throws decompilerException
 	{
 		superClassName = getClassName(super_class);
-		if(superClassName.contains("."))
-			addImportedPackage(superClassName.substring(0, superClassName.lastIndexOf(".")));
+		if(superClassName.contains("/"))
+			addImportedPackage(superClassName.substring(0, superClassName.lastIndexOf("/")));
 	}
 	
 	private void parseInterfaces() throws decompilerException
@@ -441,8 +441,8 @@ public class ClassFile
 		{
 			interfaceName = getClassName(interfaces[i]);
 			implementedInterfaces.add(interfaceName);
-			if(interfaceName.contains("."))
-				addImportedPackage(interfaceName.substring(0, interfaceName.lastIndexOf(".")));
+			if(interfaceName.contains("/"))
+				addImportedPackage(interfaceName.substring(0, interfaceName.lastIndexOf("/")));
 		}
 	}
 	
@@ -502,7 +502,10 @@ public class ClassFile
 					System.out.println("==>"+attrib.getClass().getName());
 					if(attrib instanceof Code_attribute)
 					{
-						byte[] byteCode = ((Code_attribute)attrib).getCode();
+						Code_attribute codeAttrib = ((Code_attribute)attrib);
+						for(attribute_info attr:codeAttrib.getAttributes())
+							System.out.println("===>"+attr.getClass().getName());
+						byte[] byteCode = codeAttrib.getCode();
 						int offset=0;
 						try
 						{
