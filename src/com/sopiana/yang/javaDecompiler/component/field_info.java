@@ -19,39 +19,39 @@ import com.sopiana.yang.javaDecompiler.util.Util;
 public class field_info extends class_info
 {
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>public</code>; may be accessed from outside its package.
+	 * <code>access_flags</code> shows that a field is declared <code>public</code>; may be accessed from outside its package.
 	 */
 	public static final short ACC_PUBLIC 	= 0x0001;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>private</code>; usable only within the defining class.
+	 * <code>access_flags</code> shows that a field is declared <code>private</code>; usable only within the defining class.
 	 */
 	public static final short ACC_PRIVATE 	= 0x0002;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>protected</code>; may be accessed within subclasses.
+	 * <code>access_flags</code> shows that a field is declared <code>protected</code>; may be accessed within subclasses.
 	 */
 	public static final short ACC_PROTECTED = 0x0004;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>static</code>.
+	 * <code>access_flags</code> shows that a field is declared <code>static</code>.
 	 */
 	public static final short ACC_STATIC 	= 0x0008;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>final</code>; never directly assigned to after object construction.
+	 * <code>access_flags</code> shows that a field is declared <code>final</code>; never directly assigned to after object construction.
 	 */
 	public static final short ACC_FINAL 	= 0x0010;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>volatile</code>; cannot be cached.
+	 * <code>access_flags</code> shows that a field is declared <code>volatile</code>; cannot be cached.
 	 */
 	public static final short ACC_VOLATILE 	= 0x0040;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>transient</code>; not written or read by a persistent object manager.
+	 * <code>access_flags</code> shows that a field is declared <code>transient</code>; not written or read by a persistent object manager.
 	 */
 	public static final short ACC_TRANSIENT = 0x0080;
 	/**
-	 * <code>access_flags</code> shows that a class is declared <code>synthetic</code>; not present in the source code.
+	 * <code>access_flags</code> shows that a field is declared <code>synthetic</code>; not present in the source code.
 	 */
 	public static final short ACC_SYNTHETIC = 0x1000;
 	/**
-	 * <code>access_flags</code> shows that a class is declared as an element of an <code>enum</code>. 
+	 * <code>access_flags</code> shows that a field is declared as an element of an <code>enum</code>. 
 	 */
 	public static final short ACC_ENUM 		= 0x4000;
 	/**
@@ -113,9 +113,10 @@ public class field_info extends class_info
     /**
 	 * Accessor method to <code>size</code> field
 	 * 
-	 * <p>Showing <code>constant_pool</code> entry in 8-bit cells byte including size of <code>tag</code> and <code>info[]</code>
+	 * <p>Showing <code>fields</code> entry in 8-bit cells byte including size of <code>tag</code>, <code>access_flag</code>
+	 * <code>descriptor_index</code> and <code>attributes</code> table.
 	 * components</p>
-	 * @return size of <code>constant_pool</code> entry
+	 * @return size of <code>fields</code> entry
 	 */
     public int getSize()
 	{

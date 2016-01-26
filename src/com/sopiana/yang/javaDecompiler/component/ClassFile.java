@@ -2,16 +2,14 @@ package com.sopiana.yang.javaDecompiler.component;
 
 import java.util.ArrayList;
 
-import javax.jws.Oneway;
-
 import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.Code_attribute;
 import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.SourceFile_attribute;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Class_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Void;
 import com.sopiana.yang.javaDecompiler.instruction.instruction;
-import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.util.Util;
+
 /**
  * <code>ClassFile</code> represents Java Virtual Machine class file structure 
  * 
