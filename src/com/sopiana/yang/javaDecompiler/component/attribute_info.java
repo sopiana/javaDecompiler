@@ -159,7 +159,7 @@ public class attribute_info extends class_info
      * @param offset start offset where the <code>attribute_info</code> structure starts
      * @param constant_pool <code>constant_pool</code> entry of a class
      * @return abstract <code>attribute_info</code> instance, to get specific attribute, use <code>getAttribute</code> method.
-     * @throws decompilerException if supplied <code>classFileData</code> is not a Valid attribute info
+     * @throws decompilerException if supplied <code>classFileData</code> is not a Valid <code>attribute_info</code>
      */
 	public static attribute_info getInstance(byte[]classFileData, int offset, cp_info[] constant_pool) throws decompilerException
 	{

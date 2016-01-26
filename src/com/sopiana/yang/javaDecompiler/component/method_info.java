@@ -2,7 +2,6 @@ package com.sopiana.yang.javaDecompiler.component;
 
 import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.Code_attribute;
 import com.sopiana.yang.javaDecompiler.instruction.instruction;
-import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class method_info extends class_info

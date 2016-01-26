@@ -20,9 +20,9 @@ import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
  * <p>Java Virtual Machine instructions do not rely on the run-time layout of classes, interfaces, class instances, or 
  * arrays. Instead, instructions refer to symbolic information in the <code>constant_pool</code> table.</p>
  * <p>All <code>constant_pool</code> table entries have the following general format:</p>
- * <code>cp_info {
- * &nbsp;&nbsp;&nbsp;&nbsp;u1 tag;
- * &nbsp;&nbsp;&nbsp;&nbsp;u1 info[];
+ * <code>cp_info {<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;u1 tag;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;u1 info[];<br>
  * } </code>
  * @author yang.sopiana
  *
