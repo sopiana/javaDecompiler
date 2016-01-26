@@ -21,5 +21,5 @@ public class newarray extends instruction
 	public short getAtype() { return atype; }
 	public byte[] getData() { return new byte[]{opcode, atype}; }
 	public int getSize() { return 2; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" @%02x", atype); }
 }

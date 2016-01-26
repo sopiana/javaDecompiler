@@ -24,5 +24,5 @@ public class iinc extends instruction
 	public byte getConstant() { return constant; }
 	public byte[] getData() { return new byte[]{opcode,index,constant}; }
 	public int getSize() { return 3; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" @%02x", index)+String.format(" %02x", constant); }
 }

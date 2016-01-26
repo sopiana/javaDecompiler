@@ -28,5 +28,5 @@ public class invokedynamic extends instruction
 	public byte[] getData() { return new byte[]{opcode,Util.getHighByte(index),Util.getLowByte(index),
 			Util.getHighByte(padding),Util.getLowByte(padding)}; }
 	public int getSize() { return 5; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" @%04x", index); }
 }

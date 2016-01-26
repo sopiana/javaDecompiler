@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import javax.jws.Oneway;
 
+import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.Code_attribute;
 import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.SourceFile_attribute;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Class_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Void;
+import com.sopiana.yang.javaDecompiler.instruction.instruction;
 import com.sopiana.yang.javaDecompiler.instruction.instructionException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
@@ -498,13 +500,33 @@ public class ClassFile
 				for(attribute_info attrib:m.getAttributes())
 				{
 					System.out.println("==>"+attrib.getClass().getName());
+					if(attrib instanceof Code_attribute)
+					{
+						byte[] byteCode = ((Code_attribute)attrib).getCode();
+						int offset=0;
+						try
+						{
+							while(offset<byteCode.length)
+							{
+								instruction ins = instruction.getByteCode(byteCode, offset);
+								offset+=ins.getSize();
+								System.out.println(ins.getMnemonic());
+							}
+						}
+						catch (Exception e) 
+						{
+							System.out.println("<<Error Found at index: "+offset+"value:");
+							while (offset<byteCode.length)
+								System.out.format("%02x ", byteCode[offset++]);
+						}
+					}
 				}
 			}
-			/*System.out.println("Attributes");
+			System.out.println("Attributes");
 			for(attribute_info attrib:attributes)
 			{
 				System.out.println("==>"+attrib.getClass().getName());
-			}*/
+			}
 		}
 		catch(Exception e)
 		{

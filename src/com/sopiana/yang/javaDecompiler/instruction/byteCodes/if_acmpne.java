@@ -22,6 +22,6 @@ public class if_acmpne extends instruction
 	public short getBranch() { return branch; }
 	public byte[] getData() { return new byte[]{opcode,Util.getHighByte(branch),Util.getLowByte(branch)}; }
 	public int getSize() { return 3; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" #%04x", branch); }
 }
 

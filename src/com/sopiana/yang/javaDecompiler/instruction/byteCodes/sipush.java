@@ -22,6 +22,6 @@ public class sipush extends instruction
 	public short getValue() { return value; }
 	public byte[] getData() { return new byte[]{opcode,Util.getHighByte(value),Util.getLowByte(value)}; }
 	public int getSize() { return 3; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" %04x", value); }
 
 }

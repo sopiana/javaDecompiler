@@ -26,5 +26,5 @@ public class jsr_w extends instruction
 		return new byte[]{opcode,Util.getHighByte((highShort)),Util.getLowByte(highShort),
 				Util.getHighByte((lowShort)),Util.getLowByte(lowShort)}; }
 	public int getSize() { return 5; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" #%08x", branch); }
 }

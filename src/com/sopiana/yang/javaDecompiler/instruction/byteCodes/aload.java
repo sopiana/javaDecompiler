@@ -21,6 +21,6 @@ public class aload extends instruction
 	public byte getIndex() { return index; }
 	public byte[] getData() { return new byte[]{opcode,index}; }
 	public int getSize() { return 2; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" @%02x", index); }
 	
 }

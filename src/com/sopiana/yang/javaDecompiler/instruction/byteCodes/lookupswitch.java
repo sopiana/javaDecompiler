@@ -19,8 +19,11 @@ public class lookupswitch extends instruction
 		lookupswitch res = new lookupswitch();
 		res.offset = offset;
 		res.opcode = codes[offset++];
-		res.paddingSize = 4-(offset%4);
-		offset+=res.paddingSize;
+		while(offset%4!=0)
+		{
+			offset++;
+			res.paddingSize++;
+		}
 		res.defaultbyte = Util.byte2Int(codes, offset); offset+=4;
 		res.npairs = Util.byte2Int(codes, offset);offset+=4;
 		res.matchOffset_pairs = new int[res.npairs][2];

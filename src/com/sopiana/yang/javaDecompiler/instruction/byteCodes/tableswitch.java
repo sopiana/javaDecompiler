@@ -20,8 +20,13 @@ public class tableswitch extends instruction
 		tableswitch res = new tableswitch();
 		res.offset = offset;
 		res.opcode = codes[offset++];
-		res.paddingSize = 4-(offset%4);
-		offset+=res.paddingSize;
+		res.paddingSize = 0;
+		while(offset%4!=0)
+		{
+			offset++;
+			res.paddingSize++;
+		}
+		
 		res.defaultbyte = Util.byte2Int(codes, offset); offset+=4;
 		res.lowValue = Util.byte2Int(codes, offset);offset+=4;
 		res.highValue = Util.byte2Int(codes, offset);offset+=4;

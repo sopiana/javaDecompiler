@@ -25,5 +25,5 @@ public class multianewarray extends instruction
 	public byte getDimensions() { return dimensions; }
 	public byte[] getData() { return new byte[]{opcode,Util.getHighByte(index),Util.getLowByte(index),dimensions}; }
 	public int getSize() { return 4; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" @%04x", index)+String.format(" %02x", dimensions); }
 }

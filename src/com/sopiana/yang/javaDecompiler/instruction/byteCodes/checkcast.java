@@ -22,5 +22,5 @@ public class checkcast extends instruction
 	public short getIndex() { return index; }
 	public byte[] getData() { return new byte[]{opcode,Util.getHighByte(index),Util.getLowByte(index)}; }
 	public int getSize() { return 3; }
-	public String getMnemonic() { return ins.mnemonic; }
+	public String getMnemonic() { return ins.mnemonic+String.format(" @%04x", index);}
 }
