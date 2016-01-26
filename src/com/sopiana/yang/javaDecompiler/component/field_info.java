@@ -142,7 +142,7 @@ public class field_info extends class_info
 	 * represents a valid field descriptor.</p>
      * @return value of <code>name_index</code> field
      */
-    public short getName_index() { return name_index; }
+    public int getName_index() { return name_index&0xFFFF; }
     
     /**
      * Accessor method to <code>descriptor_index</code> field
@@ -152,7 +152,7 @@ public class field_info extends class_info
 	 * represents a valid field descriptor.</p>
      * @return value of <code>descriptor_index</code> field
      */
-    public short getDescriptor_index() { return descriptor_index; }
+    public int getDescriptor_index() { return descriptor_index&0xFFFF; }
     
     /**
      * Accessor method to <code>attributes_count</code> field
