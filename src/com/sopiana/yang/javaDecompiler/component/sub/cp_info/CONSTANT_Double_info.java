@@ -69,7 +69,7 @@ public class CONSTANT_Double_info extends cp_info
 	public int getSize() { return 9; }
 	
 	/**
-     * Accessor method to <code>name_index</code> field
+     * Accessor method to <code>value</code> field
      * 
      * <p>The <code>value</code> represented by the <code>CONSTANT_Double_info</code> structure is determined as follows. 
 	 * The <code>high_bytes</code> and <code>low_bytes</code> items are converted into the <code>long</code> constant bits, 
