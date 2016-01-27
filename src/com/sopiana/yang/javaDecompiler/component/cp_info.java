@@ -121,8 +121,9 @@ public abstract class cp_info extends class_info{
 	 * @param classFileData byte array from the class file
 	 * @param offset starting index to <code>classFileData</code>
 	 * @return <code>cp_info</code> instance according to each tag
+	 * @throws decompilerException if supplied <code>classFileData</code> is not a Valid <code>constant_pool</code> structure
 	 */
-	public static cp_info getInstance(byte[]classFileData, int offset)
+	public static cp_info getInstance(byte[]classFileData, int offset) throws decompilerException
 	{
 		cp_info res=null;
 		switch (classFileData[offset]) 
@@ -170,7 +171,7 @@ public abstract class cp_info extends class_info{
 				res = CONSTANT_InvokeDynamic_info.getInstance(classFileData, offset);
 				break;
 			default:
-				return res;
+				throw new decompilerException("Invalid tag found in inputed arguments");
 		}
 		res.offset = offset;
 		return res;
