@@ -43,7 +43,7 @@ public class CONSTANT_Float_info extends cp_info
 	 * @param classFileData byte array from the class file
 	 * @param offset starting index to <code>classFileData</code>
 	 * @return instance of <code>CONSTANT_Class_info</code>
-	 * @throws decompilerException decompilerException if supplied <code>classFileData</code> has invalid <code>CONSTANT_Double_info</code> tag
+	 * @throws decompilerException decompilerException if supplied <code>classFileData</code> has invalid <code>CONSTANT_Float_info</code> tag
 	 */
 	public static CONSTANT_Float_info getInstance(byte[] classFileData, int offset) throws decompilerException
     {
