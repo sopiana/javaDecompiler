@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
+import com.sopiana.yang.javaDecompiler.printer.javaPrinter.javaPrinter;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -131,7 +132,8 @@ public class javaDecompiler
 			throw new decompilerException("Size is too big to handle");
 		InputStream fis = new FileInputStream(classFile);
 		classObj = getClassObject(fis, size);
-		//TODO: generate .java file
+		javaPrinter printer = new javaPrinter();
+		printer.addClass(classObj);
 	}
 	
 	/**
@@ -158,6 +160,8 @@ public class javaDecompiler
 			int size = 0;
 			InputStream fis = null;
 			ClassFile classObj;
+			javaPrinter printer = new javaPrinter();
+
 			ArrayList<String> classFiles = new ArrayList<>();
 			// Get the list of file headers from the zip file
 			@SuppressWarnings("rawtypes")
@@ -180,8 +184,10 @@ public class javaDecompiler
 					continue;
 				fis = new FileInputStream(jarFile);
 				classObj = getClassObject(fis, size);
+				printer.addClass(classObj);
 				fis.close();
 			}
+			printer.generateOuputFile();
 			
 		} catch (ZipException e) {
 			e.printStackTrace();

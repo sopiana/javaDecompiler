@@ -18,8 +18,8 @@ public class InnerClass_info
 		return res;
 	}
 	public int getSize() { return 8; }
-	public short inner_class_info_index() { return inner_class_info_index; }  
-	public short outer_class_info_index() { return outer_class_info_index; }
-	public short inner_name_index() { return inner_name_index; }
-	public short inner_class_access_flags() { return inner_class_access_flags; }
+	public short getInner_class_info_index() { return inner_class_info_index; }  
+	public short getOuter_class_info_index() { return outer_class_info_index; }
+	public int getInner_name_index() { return inner_name_index&0xFFFF; }
+	public short getInner_class_access_flags() { return inner_class_access_flags; }
 }

@@ -23,4 +23,6 @@ public class InnerClasses_attribute extends attribute_info
 		}
 		return res;
 	}
+	public short getNumber_of_classes() { return number_of_classes; }
+	public InnerClass_info[] getClasses() { return classes; }
 }

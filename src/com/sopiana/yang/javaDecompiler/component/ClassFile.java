@@ -1,13 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component;
 
-import java.util.ArrayList;
-
-import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.Code_attribute;
-import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.SourceFile_attribute;
-import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Class_info;
-import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Void;
-import com.sopiana.yang.javaDecompiler.instruction.instruction;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 /**
@@ -148,19 +141,7 @@ public class ClassFile
 	 * Each value of the <code>attributes</code> table must be an <code>attribute_info</code> structure (§4.7).
 	 */
 	private attribute_info attributes[];//attributes_count
-    
-	private String sourceFile;
-	private String packageName;
-	private String className;
-	private String superClassName;
-	private ArrayList<String> importedPackage;
-	private ArrayList<String> implementedInterfaces;
 
-	private ClassFile()
-	{
-		importedPackage = new ArrayList<String>();
-		implementedInterfaces = new ArrayList<String>();
-	}
 	/**
 	 * Factory method for generating instance of <code>ClassFile</code>
 	 * 
@@ -218,7 +199,7 @@ public class ClassFile
 			instance.attributes[i] = attribute_info.getInstance(classFileData, offset, instance.constant_pool);
 			offset += instance.attributes[i].getSize();
 		}
-		instance.parse();
+		//instance.parse();
 		return instance;
     }
 	
@@ -354,22 +335,6 @@ public class ClassFile
 	 */
 	public attribute_info[] getAttributes() { return attributes; }
 	
-	//TODO move the methods to other file	
-	public void parse() throws  decompilerException
-	{
-		try
-		{
-			parseThis_Class();
-			parseSuper_Class();
-			parseInterfaces();
-			sourceFile = getSourceFile();
-			System.out.println(toString()); //TODO remove this command
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
 	public static String getAccessModifier(short access_flag)
 	{
 		String res="";
@@ -387,153 +352,4 @@ public class ClassFile
 			res += "class ";
 		return res;
 	}
-		
-	private void addImportedPackage(String packageName)
-	{
-		if(this.packageName.compareTo(packageName)==0)
-			return;
-		for(String s:importedPackage)
-		{
-			if(s.compareTo(packageName)==0)
-				return;
-		}
-		importedPackage.add(packageName);
-	}
-	
-	private String getClassName(int index) throws decompilerException
-	{
-		int nameIndex=0;
-		if(constant_pool[index] instanceof CONSTANT_Class_info)
-		{
-			nameIndex = ((CONSTANT_Class_info)constant_pool[index]).getName_index();
-		
-			if(constant_pool[nameIndex] instanceof CONSTANT_Utf8_info)
-			{
-				return ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString();
-			}
-			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
-		}
-		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Class_info");
-	}
-	
-	
-	
-	private void parseThis_Class() throws decompilerException
-	{
-		packageName = getClassName(this_class);
-		className = packageName.substring(packageName.lastIndexOf("/")+1);
-		packageName = packageName.substring(0, packageName.lastIndexOf("/"));
-	}
-	
-	private void parseSuper_Class() throws decompilerException
-	{
-		superClassName = getClassName(super_class);
-		if(superClassName.contains("/"))
-			addImportedPackage(superClassName.substring(0, superClassName.lastIndexOf("/")));
-	}
-	
-	private void parseInterfaces() throws decompilerException
-	{
-		String interfaceName;
-		for(int i=0;i<interfaces.length;++i)
-		{
-			interfaceName = getClassName(interfaces[i]);
-			implementedInterfaces.add(interfaceName);
-			if(interfaceName.contains("/"))
-				addImportedPackage(interfaceName.substring(0, interfaceName.lastIndexOf("/")));
-		}
-	}
-	
-	public String getSourceFile() throws decompilerException 
-	{
-		for(attribute_info attrib:attributes)
-		{
-			if(attrib instanceof SourceFile_attribute)
-			{
-				return cp_info.getName(((SourceFile_attribute)attrib).getSourcefile_index(),constant_pool);
-			}
-		}
-		return className;
-	}
-	
-	public String toString()
-	{
-		String res="";
-		try
-		{
-			System.out.println("==========================================");
-			System.out.println("Source File:"+sourceFile);
-			System.out.println("Package Name = "+packageName);
-			System.out.println("Class Name = "+className);
-			System.out.println("Super Class = "+superClassName);
-			System.out.println("Imported Package");
-			for(String s:importedPackage)
-			{
-				System.out.println(s);
-			}
-			
-			System.out.println("Implemented interfaces");
-			for(String s:implementedInterfaces)
-			{
-				System.out.println(s);
-			}
-			
-			System.out.println("Fields");
-			for(field_info f:fields)
-			{
-				System.out.println(field_info.getAccessModifier(f.getAccess_flags())+" "+
-						cp_info.getName(f.getName_index(),constant_pool)+" "+cp_info.getName(f.getDescriptor_index(),constant_pool));
-				System.out.println("=>Attribute Length:"+f.getAttributes_count());
-				for(attribute_info attrib:f.getAttributes())
-				{
-					System.out.println("==>"+attrib.getClass().getName());
-				}
-			}
-			System.out.println("Methods");
-			for(method_info m:methods)
-			{
-				System.out.println(method_info.getAccessModifier(m.getAccess_flags())+" "+
-						cp_info.getName(m.getName_index(),constant_pool));
-				System.out.println("=>Attribute Length:"+m.getAttributes_count());
-				for(attribute_info attrib:m.getAttributes())
-				{
-					System.out.println("==>"+attrib.getClass().getName());
-					if(attrib instanceof Code_attribute)
-					{
-						Code_attribute codeAttrib = ((Code_attribute)attrib);
-						for(attribute_info attr:codeAttrib.getAttributes())
-							System.out.println("===>"+attr.getClass().getName());
-						byte[] byteCode = codeAttrib.getCode();
-						int offset=0;
-						try
-						{
-							while(offset<byteCode.length)
-							{
-								instruction ins = instruction.getByteCode(byteCode, offset);
-								offset+=ins.getSize();
-								System.out.println(ins.getMnemonic());
-							}
-						}
-						catch (Exception e) 
-						{
-							System.out.println("<<Error Found at index: "+offset+"value:");
-							while (offset<byteCode.length)
-								System.out.format("%02x ", byteCode[offset++]);
-						}
-					}
-				}
-			}
-			System.out.println("Attributes");
-			for(attribute_info attrib:attributes)
-			{
-				System.out.println("==>"+attrib.getClass().getName());
-			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return res;
-	}
-
 }
