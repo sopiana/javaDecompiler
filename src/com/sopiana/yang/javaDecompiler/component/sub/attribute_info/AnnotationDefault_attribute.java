@@ -30,7 +30,7 @@ public class AnnotationDefault_attribute extends attribute_info
 	 */
 	private element_value default_value;
 	/**
-	 * Factory method to generate a <code>CONSTANT_Class_info</code> instance from given array of byte in specific offset.
+	 * Factory method to generate a <code>AnnotationDefault_attribute</code> instance
 	 * 
 	 * <p>The <code>AnnotationDefault attribute</code> is a variable-length attribute in the <code>attributes</code> table of certain 
 	 * <code>method_info</code> structures, namely those representing elements of annotation types. It started with 2 bytes of <code>name_index</code>, 
@@ -38,8 +38,8 @@ public class AnnotationDefault_attribute extends attribute_info
 	 * @param attribute_name_index attribute_name_index value representing the name of the attribute
 	 * @param attribute_length attribute_length value indicating the length of the subsequent information in bytes
 	 * @param info byte array from the class file
-	 * @return instance of <code>CONSTANT_Class_info</code>
-	 * @throws decompilerException decompilerException if supplied <code>classFileData</code> has invalid <code>CONSTANT_Class_info</code> tag
+	 * @return instance of <code>AnnotationDefault_attribute</code>
+	 * @throws decompilerException decompilerException if supplied <code>info</code> has invalid <code>AnnotationDefault_attribute</code> format
 	 */
 	public static AnnotationDefault_attribute getInstance(short attribute_name_index, int attribute_length, byte[]info) throws decompilerException
  	{

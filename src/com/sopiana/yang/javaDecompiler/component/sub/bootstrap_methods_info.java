@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -21,4 +22,10 @@ public class bootstrap_methods_info {
 	}
 	
 	public int getSize() { return 4+num_bootstrap_arguments*2; }
+	
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO finish this method
+		return null;
+	}
 }
