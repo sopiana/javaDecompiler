@@ -57,4 +57,13 @@ public class CONSTANT_Integer_info extends cp_info
      * @return value of <code>value</code> field
      */
 	public int getValue() { return value; }
+
+	public String toString(int indent, cp_info[] constant_pool) 
+	{
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Integer_info"+"\n";
+		res+=indentStr+" value: "+value;
+		return res;
+	}
 }

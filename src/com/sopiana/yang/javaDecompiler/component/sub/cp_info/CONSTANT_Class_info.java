@@ -59,4 +59,19 @@ public class CONSTANT_Class_info extends cp_info
      * @return value of <code>access_flags</code> field
      */
 	public short getName_index() { return name_index; }
+
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Class \n";
+		try
+		{
+			res+=indentStr+" Name : "+cp_info.getName(name_index, constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" Name index : "+ name_index+"\n";
+		}
+		return res;
+	}
 }

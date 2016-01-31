@@ -69,4 +69,21 @@ public class CONSTANT_MethodHandle_info extends cp_info
      * @return value of <code>reference_index</code> field
      */
 	public short getReference_index() { return reference_index; }
+	
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_MethodHandle_info"+"\n";
+		//TODO: learn about this
+		res+=indentStr+" reference_kind:" +reference_kind+"\n";
+		try
+		{
+			res+=indentStr+" reference_index:"+cp_info.getName(reference_index,constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" reference_index"+reference_index+"\n";
+		}
+		return res;
+	}
 }

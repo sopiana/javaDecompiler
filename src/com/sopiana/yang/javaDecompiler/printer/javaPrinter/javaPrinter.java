@@ -1,5 +1,10 @@
 package com.sopiana.yang.javaDecompiler.printer.javaPrinter;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
@@ -35,9 +40,13 @@ public class javaPrinter implements decompilerPrinter
 	public void generateOuputFile() throws decompilerException 
 	{
 		classFileHandler handler;
+		File output = new File("output");
+		if(!output.exists())
+			output.mkdirs();
 		for(ClassFile classObj:classes)
 		{
 			handler = classFileHandler.getInstance(classObj);
+			/*
 			System.out.println(handler.getSourceFile());
 			System.out.println(handler.getPackageName());
 			System.out.println(handler.getClassName());
@@ -52,6 +61,19 @@ public class javaPrinter implements decompilerPrinter
 			for(String str:strs)
 			{
 				System.out.println(">>"+str);
+			}*/
+			try 
+			{
+				output = new File("output\\"+handler.getClassName().replace("/", ".")+".java");
+				BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(output));
+				String msg = classObj.toString();
+				System.out.println(msg);
+				
+				fos.write(msg.getBytes());
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			System.out.println("=================================================================");
 		}

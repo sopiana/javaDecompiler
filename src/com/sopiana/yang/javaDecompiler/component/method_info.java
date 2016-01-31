@@ -250,4 +250,10 @@ public class method_info extends class_info
     		
     	}
     }
+
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

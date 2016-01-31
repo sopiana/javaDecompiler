@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.sub.InnerClass_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -25,4 +26,9 @@ public class InnerClasses_attribute extends attribute_info
 	}
 	public short getNumber_of_classes() { return number_of_classes; }
 	public InnerClass_info[] getClasses() { return classes; }
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

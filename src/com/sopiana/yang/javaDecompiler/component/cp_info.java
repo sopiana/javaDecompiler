@@ -27,7 +27,8 @@ import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
  * @author yang.sopiana
  *
  */
-public abstract class cp_info extends class_info{
+public abstract class cp_info extends class_info
+{
 	/**
 	 * Tag value showing that a <code>constant_pool</code> entry is a <code>CONSTANT_Class</code> type
 	 */
@@ -191,4 +192,7 @@ public abstract class cp_info extends class_info{
 	 * @return size of <code>constant_pool</code> entry
 	 */
 	public abstract int getSize();
+	
+	
+	
 }

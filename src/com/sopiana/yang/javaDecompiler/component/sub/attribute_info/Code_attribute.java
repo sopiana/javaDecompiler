@@ -54,4 +54,10 @@ public class Code_attribute extends attribute_info
 	public exception_table_info[] getException_table() { return exception_table; }
 	public short getAttributes_count() { return attributes_count; }
 	public attribute_info[] getAttributes() { return attributes; }
+
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

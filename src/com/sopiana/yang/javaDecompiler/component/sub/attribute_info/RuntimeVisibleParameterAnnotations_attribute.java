@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.sub.parameter_annotations_info;
 
@@ -21,5 +22,10 @@ public class RuntimeVisibleParameterAnnotations_attribute extends attribute_info
 			offset += res.parameter_annotations[i].getSize();
 		}
 		return res;
+	}
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

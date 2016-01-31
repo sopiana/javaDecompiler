@@ -90,4 +90,12 @@ public class CONSTANT_Double_info extends cp_info
      * @return value of <code>value</code> field
      */
 	public double getValue() { return value; }
+	
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Double_info"+"\n";
+		res+=indentStr+" value:" +value+"\n";
+		return res;
+	}
 }

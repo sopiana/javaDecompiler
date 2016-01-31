@@ -41,7 +41,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
  * @author yang.sopiana
  * @see <p>The Java® Virtual Machine Specification Java SE 8 Edition section 4.7 Attributes</p>
  */
-public class attribute_info extends class_info
+public abstract class attribute_info extends class_info
 {
 	/**
 	 * <code>ConstantValue</code> attribute name
@@ -255,5 +255,7 @@ public class attribute_info extends class_info
 	 * @return <code>info</code> field value
 	 */
 	public byte[] getInfo() { return this.info; }
+
+	public abstract String toString(int indent, cp_info[] constant_pool) ;
 	
 }

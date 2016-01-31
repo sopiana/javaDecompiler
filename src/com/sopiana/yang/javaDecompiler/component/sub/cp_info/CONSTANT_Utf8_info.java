@@ -95,4 +95,20 @@ public class CONSTANT_Utf8_info extends cp_info
 			throw new decompilerException("invalid CONSTANT_Utf8_info encoding format");
 		}
 	}
+	
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Utf8_info"+"\n";
+		try
+		{
+			res+=indentStr+" value:"+getString()+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" value: "+bytes.toString()+"\n";
+		}
+		return res;
+	}
 }

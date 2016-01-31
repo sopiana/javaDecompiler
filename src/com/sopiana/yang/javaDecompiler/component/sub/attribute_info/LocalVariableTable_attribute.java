@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.sub.local_variable_table_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -23,5 +24,11 @@ public class LocalVariableTable_attribute extends attribute_info
 			offset += res.local_variable_table[i].getSize();
 		}
 		return res;
+	}
+
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

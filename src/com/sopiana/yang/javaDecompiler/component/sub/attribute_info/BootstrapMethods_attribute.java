@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.sub.bootstrap_methods_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
@@ -24,4 +25,9 @@ public class BootstrapMethods_attribute extends attribute_info
  		}
  		return res;
  	}
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

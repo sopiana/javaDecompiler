@@ -59,4 +59,20 @@ public class CONSTANT_String_info extends cp_info
 	 */
 	public short getString_index(){ return string_index; }
 
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_String_info"+"\n";
+		try
+		{
+			res+=indentStr+" string_index:"+cp_info.getName(string_index,constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" string_index: "+string_index+"\n";
+		}
+		
+		return res;
+	}
+
 }

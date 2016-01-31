@@ -5,7 +5,7 @@ import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 /**
- * Provides abstraction for <code>CONSTANT_Fieldref_info</code> item in <code>constant_pool</code> table
+ * Provides abstraction for <code>CONSTANT_InvokeDynamic_info</code> item in <code>constant_pool</code> table
  * 
  * <p>The <code>CONSTANT_InvokeDynamic_info</code> structure is used by an invokedynamic instruction to specify a 
  * bootstrap method, the dynamic invocation name, the argument and return types of the call, and optionally, a 
@@ -75,4 +75,21 @@ public class CONSTANT_InvokeDynamic_info extends cp_info
 	 * @return value of <code>name_and_type_index</code> field
 	 */
 	public short getName_and_type_index() { return name_and_type_index; }
+
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_InvokeDynamic_info"+"\n";
+		//TODO: learn about this
+		res+=indentStr+" bootstrap_method_attr_index:" +bootstrap_method_attr_index+"\n";
+		try
+		{
+			res+=indentStr+" name_and_type_index:"+cp_info.getName(((CONSTANT_NameAndType_info)constant_pool[name_and_type_index]).getName_index(),constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" name_and_type_index"+name_and_type_index+"\n";
+		}
+		return res;
+	}
 }

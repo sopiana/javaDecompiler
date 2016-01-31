@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class Signature_attribute extends attribute_info
@@ -18,4 +19,10 @@ public class Signature_attribute extends attribute_info
 	}
 	
 	public short getSignature_index() { return this.signature_index; }
+
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

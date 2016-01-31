@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.sub.line_number_table_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -22,5 +23,10 @@ public class LineNumberTable_attribute extends attribute_info
 			offset+=res.line_number_table[i].getSize();
 		}
 		return res;
+	}
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

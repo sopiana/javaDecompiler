@@ -79,4 +79,28 @@ public class CONSTANT_Fieldref_info extends cp_info{
 	 */
 	public short getName_and_type_index() { return name_and_type_index; }
 
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Fieldref_info"+"\n";
+		
+		try
+		{
+			res+=indentStr+" class_index:" +cp_info.getName(((CONSTANT_Class_info)constant_pool[class_index]).getName_index(), constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" class_index:" +class_index+"\n";
+		}
+		try
+		{
+			res+=indentStr+" name_and_type_index:"+cp_info.getName(((CONSTANT_NameAndType_info)constant_pool[name_and_type_index]).getName_index(),constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" name_and_type_index"+name_and_type_index+"\n";
+		}
+		return res;
+	}
+
 }

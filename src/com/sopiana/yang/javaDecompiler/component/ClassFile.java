@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component;
 
+import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Class_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Void;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -350,6 +351,57 @@ public class ClassFile
 			res += "enum ";
 		else
 			res += "class ";
+		return res;
+	}
+	
+	public String toString()
+	{
+		String res="";
+		res+=String.format("Magic: 0x%08X\n", magic);
+		res+="Version: "+major_version+"."+minor_version+"\n";
+		res+="Constant Pool Count: "+constant_pool_count+"\n";
+		for(int i=0;i<constant_pool_count;++i)
+		{
+			res+=" constant_pool["+i+"]\n";
+			res+=constant_pool[i].toString(1, constant_pool);
+		}
+		res+="access_flags: "+getAccessModifier(access_flags)+"\n";
+		res+="this_class: @"+this_class;
+		try
+		{
+			res+=" "+cp_info.getName(((CONSTANT_Class_info)constant_pool[this_class]).getName_index(),constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=" error cannot find this_class description \n";
+		}
+		res+="super_class: @"+super_class;
+		try
+		{
+			res+=" "+cp_info.getName(((CONSTANT_Class_info)constant_pool[super_class]).getName_index(),constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=" error cannot find super_class description \n";
+		}
+		res+="interfaces_count : "+interfaces_count+"\n";
+		for(int i=0;i<interfaces_count;++i)
+		{
+			try
+			{
+				res+="   @"+interfaces[i]+" "+cp_info.getName(((CONSTANT_Class_info)constant_pool[interfaces[i]]).getName_index(),constant_pool)+"\n";
+			}
+			catch(decompilerException e)
+			{
+				res+="   error cannot find interfaces description @"+interfaces[i];
+			}
+		}
+		res+="fields_count: "+fields_count+"\n";
+		for(int i=0;i<fields_count;++i)
+		{
+			res+=" field["+i+"]\n";
+			res+=fields[i].toString(1,constant_pool);
+		}
 		return res;
 	}
 }

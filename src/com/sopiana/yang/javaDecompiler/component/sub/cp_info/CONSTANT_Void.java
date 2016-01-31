@@ -19,4 +19,12 @@ public class CONSTANT_Void extends cp_info {
 	 */
 	public int getSize() { return 0; }
 
+	public String toString(int indent, cp_info[] constant_pool) 
+	{
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Void"+"\n";
+		return res;
+	}
+
 }

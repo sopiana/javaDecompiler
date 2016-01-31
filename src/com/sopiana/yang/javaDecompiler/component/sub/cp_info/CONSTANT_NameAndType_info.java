@@ -76,4 +76,27 @@ public class CONSTANT_NameAndType_info extends cp_info
 	 * @return value of <code>descriptor_index</code> field
 	 */
 	public short getDescriptor_index() { return descriptor_index; }
+
+	public String toString(int indent, cp_info[] constant_pool) {
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_NameAndType_info"+"\n";
+		try
+		{
+			res+=indentStr+" name_index:"+cp_info.getName(name_index,constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" name_index: "+name_index+"\n";
+		}
+		try
+		{
+			res+=indentStr+" descriptor_index:"+cp_info.getName(descriptor_index,constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" descriptor_index: "+descriptor_index+"\n";
+		}
+		return res;
+	}
 }

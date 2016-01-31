@@ -22,4 +22,15 @@ public abstract class class_info
 	 * @return offset from class file data where specific component is found
 	 */
 	public int getOffset() { return offset; }
+	
+	protected String getIndent(int indent)
+	{
+		String indentStr="";
+		
+		while(indent-->0)
+			indentStr+="  ";
+		return indentStr;
+	}
+	
+	public abstract String toString(int indent,cp_info[]constant_pool);
 }

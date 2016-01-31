@@ -2,6 +2,7 @@ package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import java.util.Arrays;
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 
 
 public class SourceDebugExtension_attribute extends attribute_info{
@@ -15,4 +16,9 @@ public class SourceDebugExtension_attribute extends attribute_info{
 		return res;
 	}
 	public byte[] getDebug_extension() { return debug_extension;}
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

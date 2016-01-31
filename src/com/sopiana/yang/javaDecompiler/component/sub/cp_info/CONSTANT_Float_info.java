@@ -86,4 +86,13 @@ public class CONSTANT_Float_info extends cp_info
      * @return value of <code>value</code> field
      */
 	public float getValue() { return value; }
+
+	public String toString(int indent, cp_info[] constant_pool) 
+	{
+		String indentStr = getIndent(indent);
+		String res="";
+		res+=indentStr+" tag: CONSTANT_Float_info"+"\n";
+		res+=indentStr+" value: "+value;
+		return res;
+	}
 }

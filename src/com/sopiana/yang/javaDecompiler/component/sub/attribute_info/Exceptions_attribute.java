@@ -3,6 +3,7 @@ package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 import java.util.Arrays;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class Exceptions_attribute extends attribute_info
@@ -26,4 +27,9 @@ public class Exceptions_attribute extends attribute_info
 	}
 	public short number_of_exceptions() { return number_of_exceptions; }
 	public short[] exception_index_table() { return Arrays.copyOf(exception_index_table, number_of_exceptions); }
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
