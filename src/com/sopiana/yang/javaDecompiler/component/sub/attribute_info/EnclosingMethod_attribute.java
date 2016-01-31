@@ -47,6 +47,7 @@ public class EnclosingMethod_attribute extends attribute_info
 	 * structure. A class must have an <code>EnclosingMethod_attribute</code> if and only if it represents a local class or an anonymous class.</p>
 	 * @param attribute_name_index attribute_name_index value representing the name of the attribute
 	 * @param attribute_length attribute_length value indicating the length of the subsequent information in bytes
+	 * @param info byte array from the class file
 	 * @return instance of <code>EnclosingMethod_attribute</code>
 	 */
 	public static EnclosingMethod_attribute getInstance(short attribute_name_index, int attribute_length, byte[]info)
@@ -73,7 +74,7 @@ public class EnclosingMethod_attribute extends attribute_info
 	 * Accessor method to <code>method_index</code> field
 	 * 
 	 * <p>If the current class is not immediately enclosed by a method or constructor, then the value of the <code>method_index</code> item 
-	 * must be zero.<p>
+	 * must be zero.</p>
 	 * <p><small>In particular, <code>method_index</code> must be zero if the current class was immediately enclosed in source code by an 
 	 * instance initializer, static initializer, instance variable initializer, or class variable initializer. (The first two concern both 
 	 * local classes and anonymous classes, while the last two concern anonymous classes declared on the right hand side of a field assignment.)</small></p>
