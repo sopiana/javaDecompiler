@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class parameters_info {
@@ -13,4 +14,9 @@ public class parameters_info {
 		return res;
 	}
 	public int getSize() { return 4; }
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO finish this method
+		return null;
+	}
 }
