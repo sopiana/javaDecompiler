@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.sub.target_info.target_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
@@ -42,5 +43,10 @@ public class type_annotation_info
 			res+=element_value_pairs[i].getSize();
 		}
 		return res;
+	}
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO finish this method
+		return null;
 	}
 }
