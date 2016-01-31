@@ -9,6 +9,8 @@ import com.sopiana.yang.javaDecompiler.component.sub.exception_table_info;
 import com.sopiana.yang.javaDecompiler.instruction.instruction;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
+ * Provides abstraction for <code>Code_attribute</code> item in <code>attributes</code> table
+ * 
  * <p>The <code>Code attribute</code> is a variable-length attribute in the attributes table of a <code>method_info</code> structure. 
  * A <code>Code attribute</code> contains the Java Virtual Machine instructions and auxiliary information for a method, including an instance 
  * initialization method or a class or interface initialization method.</p>

@@ -268,7 +268,7 @@ public abstract class attribute_info extends class_info
 		{
 			res+=indentStr+" attribute_name_index : @"+ attribute_name_index+"\n";
 		}
-		res+=indentStr+" attribute_length: "+attribute_length;
+		res+=indentStr+" attribute_length: "+attribute_length+"\n";
 		return res;
 	}
 	
