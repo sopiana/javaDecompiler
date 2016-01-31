@@ -251,9 +251,32 @@ public class method_info extends class_info
     	}
     }
 
-	@Override
 	public String toString(int indent, cp_info[] constant_pool) {
-		// TODO Auto-generated method stub
-		return null;
+		String res="";
+    	String indentStr = getIndent(indent);
+    	res+=indentStr+" access_flags: "+access_flags+" "+getAccessModifier(access_flags)+"\n";
+    	try
+    	{
+    		res+=indentStr+" name_index: "+cp_info.getName(name_index, constant_pool)+"\n";
+    	}
+    	catch(decompilerException e)
+    	{
+    		res+=indentStr+" name_index: @"+name_index+"\n";
+    	}
+    	try
+    	{
+    		res+=indentStr+" descriptor_index: "+cp_info.getName(descriptor_index, constant_pool)+"\n";
+    	}
+    	catch(decompilerException e)
+    	{
+    		res+=indentStr+" descriptor_index: @"+descriptor_index+"\n";
+    	}
+    	res+=indentStr+" attributes_count: "+attributes_count+"\n";
+    	for(int i=0;i<attributes_count;++i)
+    	{
+    		res+=indentStr+" attributes["+i+"]:\n";
+    		res+=attributes[i].toString(indent+1, constant_pool);
+    	}
+    	return res;
 	}
 }
