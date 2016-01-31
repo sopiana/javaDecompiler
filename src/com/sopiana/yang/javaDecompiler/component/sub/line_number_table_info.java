@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class line_number_table_info {
@@ -15,4 +16,9 @@ public class line_number_table_info {
 	public short getStart_pc() { return start_pc; }
 	public short getLine_number() { return line_number; }
 	public int getSize() { return 4; }
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO finish this method
+		return null;
+	}
 }
