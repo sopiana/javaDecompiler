@@ -217,39 +217,7 @@ public class method_info extends class_info
 		return res;
 	}
     
-    public void parseByteCode()
-    {
-    	for(attribute_info attr:attributes)
-    	{
-    		
-    		if(attr instanceof Code_attribute)
-    		{
-    			Code_attribute codeAttr = (Code_attribute)attr;
-    			byte[] code = codeAttr.getCode();
-    			int offset=0;
-    			try 
-    			{
-    			while(offset<code.length)
-    			{
-    				instruction ins;
-					
-						ins = instruction.getByteCode(code, offset);
-					
-	    				System.out.println(ins.getMnemonic());
-	    				offset+=ins.getSize();
-					} 
-					
-    			}
-    		catch (Exception e) 
-			{
-				// TODO Auto-generated catch block
-				System.out.println("??Unknown Instruction "+String.format("%02x ", code[offset]));
-				break;
-			}
-    		}
-    		
-    	}
-    }
+   
 
 	public String toString(int indent, cp_info[] constant_pool) {
 		String res="";

@@ -42,8 +42,8 @@ public class BootstrapMethods_attribute extends attribute_info
 	/**
 	 * Factory method to generate a <code>BootstrapMethods_attribute</code> instance.
 	 * 
-	 * <p>The <code>BootstrapMethods_attribute attribute</code> is a variable-length attribute in the <code>attributes</code> table of certain 
-	 * <code>method_info</code> structures, namely those representing elements of annotation types. It started with 2 bytes of <code>name_index</code>, 
+	 * <p>The <code>BootstrapMethods_attribute </code> is a variable-length attribute in the <code>attributes</code> table records bootstrap method 
+	 * specifiers referenced by <i>invokedynamic</i> instructions.. It started with 2 bytes of <code>name_index</code>, 
 	 * 2 bytes of <code>attribute_length</code>, 2 bytes of <code>num_bootstrap_methods</code> and variable-length <code>bootstrap_methods</code> table</p>
 	 * @param attribute_name_index attribute_name_index value representing the name of the attribute
 	 * @param attribute_length attribute_length value indicating the length of the subsequent information in bytes

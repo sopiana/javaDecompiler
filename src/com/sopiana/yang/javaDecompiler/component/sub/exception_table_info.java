@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class exception_table_info
@@ -24,4 +25,10 @@ public class exception_table_info
 	public short getEnd_pc() { return end_pc; }
 	public short getHandler_pc() { return handler_pc; }
 	public short getCatch_type() { return catch_type; }
+	
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO finish this method
+		return null;
+	}
 }

@@ -7,7 +7,7 @@ import com.sopiana.yang.javaDecompiler.component.sub.element_value;
 /**
  * Provides abstraction for <code>AnnotationDefault_attribute</code> item in <code>attributes</code> table
  * 
- * <p>The <code>AnnotationDefault attribute</code> is a variable-length attribute in the <code>attributes</code> table of certain 
+ * <p>The <code>AnnotationDefault_attribute</code> is a variable-length attribute in the <code>attributes</code> table of certain 
  * <code>method_info</code> structures, namely those representing elements of annotation types. The <code>AnnotationDefault</code> attribute 
  * records the default value for the element represented by the <code>method_info</code> structure. The Java Virtual Machine must make this 
  * default value available so it can be applied by appropriate reflective APIs.</p>
