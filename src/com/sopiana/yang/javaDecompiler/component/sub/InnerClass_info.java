@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class InnerClass_info 
@@ -22,4 +23,9 @@ public class InnerClass_info
 	public short getOuter_class_info_index() { return outer_class_info_index; }
 	public int getInner_name_index() { return inner_name_index&0xFFFF; }
 	public short getInner_class_access_flags() { return inner_class_access_flags; }
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO finish this method
+		return null;
+	}
 }
