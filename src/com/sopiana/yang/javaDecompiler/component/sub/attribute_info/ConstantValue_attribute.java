@@ -2,7 +2,6 @@ package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
-import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
  * Provides abstraction for <code>ConstantValue_attribute</code> item in <code>attributes</code> table
@@ -11,7 +10,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
  * structure. A <code>ConstantValue_attribute</code> represents the value of a constant expression, and is used as follows:</p>
  * <ul>
  * <li>If the <code>ACC_STATIC flag</code> in the <code>access_flags</code> item of the <code>field_info</code> structure is set, then the 
- * field represented by the <code>field_info</code> structure is assigned the value represented by its <code>ConstantValue_attribute<code> 
+ * field represented by the <code>field_info</code> structure is assigned the value represented by its <code>ConstantValue_attribute</code> 
  * as part of the initialization of the class or interface declaring the field. This occurs prior to the invocation of the class or interface 
  * initialization method of that class or interface.</li>
  * <li>Otherwise, the Java Virtual Machine must silently ignore the attribute </li>
@@ -42,7 +41,6 @@ public class ConstantValue_attribute extends attribute_info
 	 * @param attribute_length attribute_length value indicating the length of the subsequent information in bytes
 	 * @param info byte array from the class file
 	 * @return instance of <code>ConstantValue_attribute</code>
-	 * @throws decompilerException decompilerException if supplied <code>info</code> has invalid <code>BootstrapMethods_attribute</code> format
 	 */
 	public static ConstantValue_attribute getInstance(short attribute_name_index, int attribute_length, byte[]info)
 	{
