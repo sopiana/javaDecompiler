@@ -224,6 +224,11 @@ public class field_info extends class_info
     		res+=indentStr+" descriptor_index: @"+descriptor_index+"\n";
     	}
     	res+=indentStr+" attributes_count: "+attributes_count+"\n";
+    	for(int i=0;i<attributes_count;++i)
+    	{
+    		res+=indentStr+" attributes["+i+"]:\n";
+    		res+=attributes[i].toString(indent+1, constant_pool);
+    	}
     	return res;
     }
 }

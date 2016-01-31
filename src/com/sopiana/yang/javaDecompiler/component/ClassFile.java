@@ -402,6 +402,18 @@ public class ClassFile
 			res+=" field["+i+"]\n";
 			res+=fields[i].toString(1,constant_pool);
 		}
+		res+="methods_count: "+methods_count+"\n";
+		for(int i=0;i<methods_count;++i)
+		{
+			res+=" methods["+i+"]\n";
+			res+=methods[i].toString(1,constant_pool);
+		}
+		res+="attributes_count: "+attributes_count+"\n";
+		for(int i=0;i<attributes_count;++i)
+		{
+			res+=" attributes["+i+"]\n";
+			res+=attributes[i].toString(1,constant_pool);
+		}
 		return res;
 	}
 }

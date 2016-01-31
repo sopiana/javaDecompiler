@@ -256,6 +256,20 @@ public abstract class attribute_info extends class_info
 	 */
 	public byte[] getInfo() { return this.info; }
 
-	public abstract String toString(int indent, cp_info[] constant_pool) ;
+	public String toString(int indent, cp_info[] constant_pool){
+		String indentStr = getIndent(indent);
+		String res="";
+		
+		try
+		{
+			res+=indentStr+" attribute_name_index : "+cp_info.getName(attribute_name_index, constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" attribute_name_index : @"+ attribute_name_index+"\n";
+		}
+		res+=indentStr+" attribute_length: "+attribute_length;
+		return res;
+	}
 	
 }
