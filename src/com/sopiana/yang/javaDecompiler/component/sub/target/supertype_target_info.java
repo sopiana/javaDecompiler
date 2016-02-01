@@ -1,5 +1,7 @@
-package com.sopiana.yang.javaDecompiler.component.sub.target_info;
+package com.sopiana.yang.javaDecompiler.component.sub.target;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
+import com.sopiana.yang.javaDecompiler.component.sub.target_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class supertype_target_info extends target_info
@@ -13,5 +15,10 @@ public class supertype_target_info extends target_info
 	}
 	public int getSize() { return 2; }
 	public short getSupertype_index() { return supertype_index; }
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

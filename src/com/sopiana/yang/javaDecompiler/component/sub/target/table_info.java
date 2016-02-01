@@ -1,4 +1,4 @@
-package com.sopiana.yang.javaDecompiler.component.sub.target_info;
+package com.sopiana.yang.javaDecompiler.component.sub.target;
 
 import com.sopiana.yang.javaDecompiler.util.Util;
 

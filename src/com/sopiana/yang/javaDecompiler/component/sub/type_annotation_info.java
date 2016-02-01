@@ -3,7 +3,6 @@ package com.sopiana.yang.javaDecompiler.component.sub;
 import com.sopiana.yang.javaDecompiler.component.class_info;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
-import com.sopiana.yang.javaDecompiler.component.sub.target_info.target_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
  * Provides abstraction for <code>type_annotation_info</code> item

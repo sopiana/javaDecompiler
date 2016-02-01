@@ -1,5 +1,7 @@
-package com.sopiana.yang.javaDecompiler.component.sub.target_info;
+package com.sopiana.yang.javaDecompiler.component.sub.target;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
+import com.sopiana.yang.javaDecompiler.component.sub.target_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class localvar_target_info extends target_info
@@ -29,4 +31,10 @@ public class localvar_target_info extends target_info
 	}
 	
 	public short getTable_length() { return table_length; }
+
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
