@@ -23,7 +23,7 @@ public abstract class class_info
 	 */
 	public int getOffset() { return offset; }
 	
-	protected String getIndent(int indent)
+	public static String getIndent(int indent)
 	{
 		String indentStr="";
 		

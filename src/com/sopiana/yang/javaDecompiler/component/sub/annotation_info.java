@@ -1,13 +1,58 @@
 package com.sopiana.yang.javaDecompiler.component.sub;
 
+import com.sopiana.yang.javaDecompiler.component.class_info;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.util.Util;
-
-public class annotation_info {
+/**
+ * Provides abstraction for <code>annotation_info</code> item in <code>annotations</code> table
+ * 
+ * <p>The <code>annotation_info</code> is a variable-length structure building <code>annotations</code> table in <code>RuntimeInvisibleAnnotations_attribute</code>,
+ * <code>RuntimeInvisibleParameterAnnotations_attribute</code>, <code>RuntimeInvisibleTypeAnnotations_attribute</code>, <code>RuntimeVisibleAnnotations_attribute</code>, 
+ * <code>RuntimeVisibleParameterAnnotations_attribute</code> and <code>RuntimeVisibleTypeAnnotations_attribute</code>. Each entry in the annotations table represents a single run-time visible
+ * annotation on a declaration. </p>
+ * <p>The annotation structure has the following format:</p>
+ * <code>annotation {<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;u2 type_index;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;u2 num_element_value_pairs;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;{ <br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u2 element_name_index;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;element_value value;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;} element_value_pairs[num_element_value_pairs];<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;}</code>
+ * @author yang.sopiana
+ *
+ */
+public class annotation_info 
+{
+	/**
+	 * <p>The value of the <code>type_index</code> item must be a valid index into the <code>constant_pool</code> table. The <code>constant_pool</code> 
+	 * entry at that index must be a <code>CONSTANT_Utf8_info</code> structure representing a field descriptor. The field descriptor denotes the type 
+	 * of the annotation represented by this annotation structure.</p>
+	 */
 	private short type_index;
+	/**
+	 * <p>The value of the <code>num_element_value_pairs</code> item gives the number of element-value pairs of the annotation represented by this 
+	 * annotation structure.</p>
+	 */
 	private short num_element_value_pairs;
+	/**
+	 * <p>Each value of the <code>element_value_pairs</code> table represents a single element value pair in the annotation represented by 
+	 * this annotation structure. </p>
+	 */
 	private element_value_pairs_info element_value_pairs[];	//num_element_value_pairs
+	/**
+	 * Factory method to generate a <code>annotation_info</code> entry from given array of byte in specific offset.
+	 * 
+	 * <p>The <code>annotation_info</code> is a variable-length structure building <code>annotations</code> table in <code>RuntimeInvisibleAnnotations_attribute</code>,
+	 * <code>RuntimeInvisibleParameterAnnotations_attribute</code>, <code>RuntimeInvisibleTypeAnnotations_attribute</code>, <code>RuntimeVisibleAnnotations_attribute</code>, 
+	 * <code>RuntimeVisibleParameterAnnotations_attribute</code> and <code>RuntimeVisibleTypeAnnotations_attribute</code>. Each entry in the annotations table represents a single run-time visible
+	 * annotation on a declaration. </p>
+	 * @param classFileData byte array from the class file
+	 * @param offset starting index to <code>classFileData</code>
+	 * @return instance of <code>annotation_info</code>
+	 * @throws decompilerException if supplied <code>classFileData</code> is not a Valid <code>annotation_info</code>
+	 */
 	public static annotation_info getInstance(byte[]classFileData, int offset) throws decompilerException
 	{
 		annotation_info res = new annotation_info();
@@ -21,7 +66,12 @@ public class annotation_info {
 		}
 		return res;
 	}
-	
+	/**
+	 * Accessor method to <code>size</code> field
+	 * 
+	 * <p>Return size of <code>annotation_info</code> entry components</p>
+	 * @return size of <code>annotation_info</code> entry
+	 */
 	public int getSize() 
 	{ 
 		int res = 4;
@@ -31,13 +81,50 @@ public class annotation_info {
 		}
 		return res; 
 	}
-	
+	 /**
+     * Accessor method to <code>type_index</code> field
+     * 
+	 * <p>The value of the <code>type_index</code> item must be a valid index into the <code>constant_pool</code> table. The <code>constant_pool</code> 
+	 * entry at that index must be a <code>CONSTANT_Utf8_info</code> structure representing a field descriptor. The field descriptor denotes the type 
+	 * of the annotation represented by this annotation structure.</p>
+	 * @return value of <code>type_index</code> field
+	 */
 	public short getType_index() { return type_index; }
+	 /**
+     * Accessor method to <code>num_element_value_pairs</code> field
+     * 
+	 * <p>The value of the <code>num_element_value_pairs</code> item gives the number of element-value pairs of the annotation represented by this 
+	 * annotation structure.</p>
+	 * @return value of <code>num_element_value_pairs</code> field
+	 */
 	public short getNum_element_value_pairs() { return num_element_value_pairs; }
+	 /**
+     * Accessor method to <code>element_value_pairs</code> field
+     * 
+	 * <p>Each value of the <code>element_value_pairs</code> table represents a single element value pair in the annotation represented by 
+	 * this annotation structure. </p>
+	 * @return value of <code>element_value_pairs</code> field
+	 */
+	public element_value_pairs_info[] getElement_value_pairs() { return element_value_pairs; }
 	
 	public String toString(int indent, cp_info[] constant_pool) 
 	{	
-		//TODO finish this method
-		return null;
+		String indentStr = class_info.getIndent(indent);
+		String res="";
+		try
+		{
+			res+=indentStr+" type: "+cp_info.getName(type_index, constant_pool)+"\n";
+		}
+		catch(decompilerException e)
+		{
+			res+=indentStr+" type_index: @"+ type_index+"\n";
+		}
+		res+=indentStr+" num_element_value_pairs: "+num_element_value_pairs+"\n";
+		for(int i=0;i<num_element_value_pairs;++i)
+		{
+			res+=indentStr+"element_value_pairs["+i+"]:\n";
+			res+=element_value_pairs[i].toString(indent+1, constant_pool);
+		}
+		return res;
 	}
 }
