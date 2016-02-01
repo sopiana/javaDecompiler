@@ -5,9 +5,12 @@ import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
+ * Provides abstraction for <code>element_value_pairs_info</code> item
+ * 
  * <p>The <code>element_value_pairs_info</code> is a variable-length sub-element structure used in <code>annotation</code> item.
  * Each value of the <code>element_value_pairs</code> table represents a single element value pair in the <code>annotation</code> 
  * represented by annotation structure. </p>
+ * <p>The <code>element_value_pairs_info</code> structure has the following format:</p>
  * <code>element_value_pairs_info {<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u2 element_name_index;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;element_value value;<br>
