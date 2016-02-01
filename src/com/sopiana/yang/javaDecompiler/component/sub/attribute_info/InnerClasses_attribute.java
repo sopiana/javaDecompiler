@@ -17,7 +17,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
  * &nbsp;&nbsp;&nbsp;&nbsp;u2 attribute_name_index;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u4 attribute_length;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u2 number_of_classes;<br>
- * &nbsp;&nbsp;&nbsp;&nbsp;{ 
+ * &nbsp;&nbsp;&nbsp;&nbsp;{ <br>
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u2 inner_class_info_index;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u2 outer_class_info_index;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;u2 inner_name_index;<br>

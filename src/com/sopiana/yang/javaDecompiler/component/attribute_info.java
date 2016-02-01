@@ -30,7 +30,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
  * <code>attribute_info</code> class contains abstraction of Java Virtual Machine <i>Attributes</i> elements.
  * 
  * <p><i>Attributes</i> are used in the <code>ClassFile</code>, <code>field_info</code>, <code>method_info</code>, and
- * <code>Code_attribute</code> structures of the class file format (§4.1, §4.5, §4.6, §4.7.3).</p>
+ * <code>Code_attribute</code> structures of the class file format.</p>
  * <p>All attributes have the following general format:</p>
  * <code>attribute_info {<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u2 attribute_name_index;<br>
