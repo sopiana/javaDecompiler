@@ -40,6 +40,7 @@ public class parameter_annotations_info
 	 * @param classFileData byte array from the class file
 	 * @param offset starting index to <code>classFileData</code>
 	 * @return instance of <code>parameter_annotations_info</code>
+	 * @throws decompilerException if supplied <code>classFileData</code> is not a Valid <code>parameter_annotations_info</code>
 	 */
 	public static parameter_annotations_info getInstance(byte[]classFileData, int offset) throws decompilerException
 	{
