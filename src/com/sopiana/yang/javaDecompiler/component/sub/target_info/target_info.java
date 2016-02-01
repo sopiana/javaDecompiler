@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub.target_info;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 
 public abstract class target_info 
@@ -46,4 +47,9 @@ public abstract class target_info
 	}
 	
 	public abstract int getSize();
+	public String toString(int indent, cp_info[] constant_pool) 
+	{	
+		//TODO change to abstract method
+		return null;
+	}
 }

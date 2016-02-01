@@ -1,6 +1,5 @@
 package com.sopiana.yang.javaDecompiler.component.sub.target_info;
 
-import com.sopiana.yang.javaDecompiler.component.sub.table_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class localvar_target_info extends target_info
