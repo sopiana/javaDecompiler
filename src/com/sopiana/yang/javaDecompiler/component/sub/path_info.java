@@ -8,7 +8,7 @@ import com.sopiana.yang.javaDecompiler.component.cp_info;
  * 
  * <p>The <code>path_info</code> is a fixed-length sub-element structure used in <code>type_path_info</code> 
  * item.</p>
- * <p>The <code>parameters_info</code> structure has the following format:</p>
+ * <p>The <code>path_info</code> structure has the following format:</p>
  * <code>path_info{<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u1 type_path_kind;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u1 type_argument_index;<br>
