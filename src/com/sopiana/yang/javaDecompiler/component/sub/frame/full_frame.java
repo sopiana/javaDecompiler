@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub.frame;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.sub.stack_map_frame;
 import com.sopiana.yang.javaDecompiler.component.sub.verification_type_info;
@@ -16,7 +17,7 @@ public class full_frame extends stack_map_frame
 	public static full_frame getInstance(byte[] classFileData, int offset) throws decompilerException
 	{
 		full_frame res = new full_frame();
-		res.frame_type = classFileData[offset++];
+		res.tag = classFileData[offset++];
 		res.offset_delta = Util.byte2Short(classFileData,offset); offset+=2;
 		res.number_of_locals = Util.byte2Short(classFileData,offset); offset+=2;
 		res.locals = new verification_type_info[res.number_of_locals];
@@ -42,5 +43,11 @@ public class full_frame extends stack_map_frame
 		for(int i=0; i<stack.length;++i)
 			res += stack[i].getSize();
 		return res;
+	}
+
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

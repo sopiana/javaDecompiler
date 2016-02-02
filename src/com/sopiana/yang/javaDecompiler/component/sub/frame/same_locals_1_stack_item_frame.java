@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub.frame;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.sub.stack_map_frame;
 import com.sopiana.yang.javaDecompiler.component.sub.verification_type_info;
@@ -10,9 +11,14 @@ public class same_locals_1_stack_item_frame extends stack_map_frame
 	public static same_locals_1_stack_item_frame getInstance(byte[] classFileData, int offset) throws decompilerException
 	{
 		same_locals_1_stack_item_frame res= new same_locals_1_stack_item_frame();
-		res.frame_type = classFileData[offset++];
+		res.tag = classFileData[offset++];
 		res.stack = verification_type_info.getInstance(classFileData, offset);
 		return res;
 	}
 	public int getSize() { return 1+stack.getSize(); }
+	@Override
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

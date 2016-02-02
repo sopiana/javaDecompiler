@@ -21,6 +21,8 @@ import com.sopiana.yang.javaDecompiler.component.sub.target.type_parameter_targe
 public abstract class target_info 
 {
 	/**
+	 * Abstract factory method generating <code>target_info</code> instance based on it's type
+	 * 
 	 * <p>Return <code>target_info</code> according to it's type as following table</p>
 	 * <table summary="Interpretation of target_type values">
 	 * 		<thead>

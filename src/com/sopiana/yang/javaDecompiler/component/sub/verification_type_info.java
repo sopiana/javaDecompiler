@@ -11,7 +11,22 @@ import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Top_varia
 import com.sopiana.yang.javaDecompiler.component.sub.verification_type.UninitializedThis_variable_info;
 import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Uninitialized_variable_info;
 /**
- * 
+ * A verification type specifies the type of either one or two locations, where a location
+is either a single local variable or a single operand stack entry. A verification type
+is represented by a discriminated union, verification_type_info, that consists
+of a one-byte tag, indicating which item of the union is in use, followed by zero or
+more bytes, giving more information about the tag.
+union verification_type_info {
+ Top_variable_info;
+ Integer_variable_info;
+ Float_variable_info;
+ Long_variable_info;
+ Double_variable_info;
+ Null_variable_info;
+ UninitializedThis_variable_info;
+ Object_variable_info;
+ Uninitialized_variable_info;
+}
  * @author yang
  *
  */
