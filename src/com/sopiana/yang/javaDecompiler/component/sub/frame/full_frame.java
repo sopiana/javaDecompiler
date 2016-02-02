@@ -1,7 +1,8 @@
 package com.sopiana.yang.javaDecompiler.component.sub.frame;
 
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
-import com.sopiana.yang.javaDecompiler.component.sub.verification_type.verification_type_info;
+import com.sopiana.yang.javaDecompiler.component.sub.stack_map_frame;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class full_frame extends stack_map_frame

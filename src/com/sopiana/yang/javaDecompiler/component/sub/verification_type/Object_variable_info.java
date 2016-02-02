@@ -1,6 +1,7 @@
 package com.sopiana.yang.javaDecompiler.component.sub.verification_type;
 
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
 public class Object_variable_info extends verification_type_info

@@ -1,7 +1,20 @@
-package com.sopiana.yang.javaDecompiler.component.sub.verification_type;
+package com.sopiana.yang.javaDecompiler.component.sub;
 
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
-
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Double_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Float_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Integer_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Long_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Null_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Object_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Top_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.UninitializedThis_variable_info;
+import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Uninitialized_variable_info;
+/**
+ * 
+ * @author yang
+ *
+ */
 public abstract class verification_type_info 
 {
 	public static final byte ITEM_Top = 0;

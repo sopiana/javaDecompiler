@@ -3,7 +3,7 @@ package com.sopiana.yang.javaDecompiler.component.sub.attribute_info;
 import com.sopiana.yang.javaDecompiler.component.attribute_info;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
-import com.sopiana.yang.javaDecompiler.component.sub.frame.stack_map_frame;
+import com.sopiana.yang.javaDecompiler.component.sub.stack_map_frame;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
  * Provides abstraction for <code>StackMapTable_attribute</code> item in <code>attributes</code> table
