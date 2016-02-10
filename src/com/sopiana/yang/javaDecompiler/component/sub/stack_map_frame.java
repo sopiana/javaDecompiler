@@ -15,7 +15,6 @@ import com.sopiana.yang.javaDecompiler.component.sub.frame.same_locals_1_stack_i
  * 
  * <p>A stack map frame specifies (either explicitly or implicitly) the bytecode offset at which it applies, and the verification types of 
  * local variables and operand stack entries for that offset.</p>
- * <p>
  * <p>Each stack map frame described in the entries table relies on the previous frame for some of its semantics. The first stack map frame 
  * of a method is implicit, and computed from the method descriptor by the type checker. The <code>stack_map_frame</code> structure at <code>entries[0]</code> 
  * therefore describes the second stack map frame of the method.</p>
@@ -39,7 +38,7 @@ import com.sopiana.yang.javaDecompiler.component.sub.frame.same_locals_1_stack_i
  * &nbsp;&nbsp;&nbsp;&nbsp;same_frame_extended;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;append_frame;<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;full_frame;<br>
- * }<br>
+ * }</code>
  * @author yang.sopiana
  *
  */
