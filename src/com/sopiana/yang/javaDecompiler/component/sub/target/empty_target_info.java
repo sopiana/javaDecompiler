@@ -3,7 +3,7 @@ package com.sopiana.yang.javaDecompiler.component.sub.target;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.sub.target_info;
 /**
- * Provides abstraction for <code>catch_target_info</code> item
+ * Provides abstraction for <code>empty_target_info</code> item
  * 
  * <p>The <code>empty_target_info</code> item indicates that an annotation appears on either the type in a field declaration, the return 
  * type of a method, the type of a newly constructed object, or the receiver type of a method or constructor.</p>
@@ -11,7 +11,7 @@ import com.sopiana.yang.javaDecompiler.component.sub.target_info;
  * <code>empty_target_info {<br>
  * }</code>
  * <p><small>Only one type appears in each of these locations, so there is no per-type information to represent in the <code>target_info</code> union.</small></p>
- * @author yang
+ * @author yang.sopiana
  *
  */
 public class empty_target_info extends target_info
