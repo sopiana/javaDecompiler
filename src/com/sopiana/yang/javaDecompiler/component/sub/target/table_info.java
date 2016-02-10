@@ -1,5 +1,6 @@
 package com.sopiana.yang.javaDecompiler.component.sub.target;
 
+import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.util.Util;
 /**
  * Each entry indicates a range of code array offsets within which a local
@@ -48,4 +49,9 @@ LocalVariableTable attribute.</small>
 	public short getStart_pc() { return start_pc; }
 	public short getLength() { return length; }
 	public short getIndex() { return index; }
+	
+	public String toString(int indent, cp_info[] constant_pool) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
