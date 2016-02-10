@@ -21,4 +21,10 @@ public class Object_variable_info extends verification_type_info
 
 	public int getSize() { return 3; }
 	public short getCpool_index() { return cpool_index; }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

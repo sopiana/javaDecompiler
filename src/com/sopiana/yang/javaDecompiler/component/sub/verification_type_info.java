@@ -11,38 +11,81 @@ import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Top_varia
 import com.sopiana.yang.javaDecompiler.component.sub.verification_type.UninitializedThis_variable_info;
 import com.sopiana.yang.javaDecompiler.component.sub.verification_type.Uninitialized_variable_info;
 /**
- * A verification type specifies the type of either one or two locations, where a location
-is either a single local variable or a single operand stack entry. A verification type
-is represented by a discriminated union, verification_type_info, that consists
-of a one-byte tag, indicating which item of the union is in use, followed by zero or
-more bytes, giving more information about the tag.
-union verification_type_info {
- Top_variable_info;
- Integer_variable_info;
- Float_variable_info;
- Long_variable_info;
- Double_variable_info;
- Null_variable_info;
- UninitializedThis_variable_info;
- Object_variable_info;
- Uninitialized_variable_info;
-}
- * @author yang
+ * Provides abstraction for <code>verification_type_info</code> item
+ * 
+ * <p>A verification type specifies the type of either one or two locations, where a location is either a single local variable or a single 
+ * operand stack entry. A verification type is represented by a discriminated union, <code>verification_type_info</code>, that consists of a 
+ * one-byte <code>tag</code>, indicating which item of the union is in use, followed by zero or more bytes, giving more information about the 
+ * tag.</p>
+ * <p>The <code>verification_type_info</code> structure has the following format:</p>
+ * <code>union verification_type_info {<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Top_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Integer_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Float_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Long_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Double_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Null_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;UninitializedThis_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Object_variable_info;<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Uninitialized_variable_info;<br>
+ * }</code>
+ * @author yang.sopiana
  *
  */
 public abstract class verification_type_info 
 {
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Top_variable_info</code>
+	 */
 	public static final byte ITEM_Top = 0;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Integer_variable_info</code>
+	 */
 	public static final byte ITEM_Integer = 1;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Float_variable_info</code>
+	 */
 	public static final byte ITEM_Float = 2;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Double_variable_info</code>
+	 */
 	public static final byte ITEM_Double = 3;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Long_variable_info</code>
+	 */
 	public static final byte ITEM_Long = 4;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Null_variable_info</code>
+	 */
 	public static final byte ITEM_Null = 5;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>UninitializedThis_variable_info</code>
+	 */
 	public static final byte ITEM_UninitializedThis = 6;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Object_variable_info</code>
+	 */
 	public static final byte ITEM_Object = 7;
+	/**
+	 * <code>tag</code> value indicating that the item is an <code>Uninitialized_variable_info</code>
+	 */
 	public static final byte ITEM_Uninitialized = 8;
+	/**
+	 * one-byte <code>tag</code>, indicating which item of the union is in use
+	 */
 	protected byte tag;
-	
+	/**
+	 * Factory method to generate a <code>verification_type_info</code> instance based on its tag.
+	 * 
+	 * <p>A verification type specifies the type of either one or two locations, where a location is either a single local variable or a single 
+	 * operand stack entry. A verification type is represented by a discriminated union, <code>verification_type_info</code>, that consists of a 
+	 * one-byte <code>tag</code>, indicating which item of the union is in use, followed by zero or more bytes, giving more information about the 
+	 * tag.</p>
+	 * @param classFileData byte array from the class file
+	 * @param offset starting index to <code>classFileData</code>
+	 * @return instance of <code>verification_type_info</code>
+	 * @throws decompilerException if supplied <code>classFileData</code> is not a Valid <code>verification_type_info</code>
+	 */
 	public static verification_type_info getInstance(byte[] classFileData, int offset) throws decompilerException
 	{
 		switch(classFileData[offset])
@@ -69,6 +112,13 @@ public abstract class verification_type_info
 				throw new decompilerException("Arguments passed is not type of verification_type_info");
 		}
 	}
-	
+	/**
+	 * Accessor method to <code>tag</code> field
+     * 
+	 * <p>one-byte <code>tag</code>, indicating which item of the union is in use.</p>
+	 * @return value of <code>tag</code> field
+	 */
+	public byte getTag() { return tag; }
 	public abstract int getSize();
+	public abstract String toString();
 }

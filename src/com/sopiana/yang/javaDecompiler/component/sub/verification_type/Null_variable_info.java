@@ -17,4 +17,10 @@ public class Null_variable_info extends verification_type_info
 	}
 
 	public int getSize() { return 1; }
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
