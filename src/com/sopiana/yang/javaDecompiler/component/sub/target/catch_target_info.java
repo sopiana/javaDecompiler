@@ -12,7 +12,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
  * <code>catch_target_info {<br>
  * &nbsp;&nbsp;&nbsp;&nbsp;u2 exception_table_index;<br>
  * }</code>
- * @author yang
+ * @author yang.sopiana
  *
  */
 public class catch_target_info extends target_info
