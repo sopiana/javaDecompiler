@@ -8,6 +8,7 @@
     <property name="jar.dir"     	value="${build.dir}/jar"/>
     <property name="main-class"  	value="com.sopiana.yang.javaDecompiler.javaDecompiler"/>
 	<property name="jar.testFile"	value="test/jsoup-1.8.3.jar"/>
+	<property name="outpath"		value="output"/>
 	<!--<property name="jar.testFile"	value="test/javaDecompiler.class"/>-->
 
     <target name="clean">
@@ -43,7 +44,14 @@
             </manifest>
         </jar>
     </target>
-	
+	<target name="test" depends="clean,jar">
+		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
+			<arg id="-input" value="-input"/>
+			<arg id="${jar.testFile}" value="${jar.testFile}"/>
+			<arg id="-outputpath" value="-outputpath"/>
+			<arg id="${jar.testFile}" value="${jar.testFile}"/>
+		</java>
+	</target>
 	<target name="run">
 		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
 			<arg id="-input" value="-input"/>

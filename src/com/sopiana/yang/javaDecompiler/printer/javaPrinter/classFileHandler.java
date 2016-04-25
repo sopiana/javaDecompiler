@@ -49,7 +49,6 @@ public class classFileHandler
 			if(attrib instanceof InnerClasses_attribute)
 			{
 				InnerClasses_attribute innerClass = (InnerClasses_attribute)attrib;
-				System.out.println("==>"+innerClass.getNumber_of_classes());
 				InnerClass_info innerClasses[] = innerClass.getClasses();
 				for(InnerClass_info cla:innerClasses)
 				{

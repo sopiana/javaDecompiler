@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
@@ -16,9 +19,10 @@ public class javaPrinter implements decompilerPrinter
 	private ArrayList<ClassFile> classes;
 	private String outputPath;
 	
-	public javaPrinter() 
+	public javaPrinter(String outputPath) 
 	{
 		classes = new ArrayList<>();
+		this.outputPath = outputPath;
 	}
 	
 	public javaPrinter(ArrayList<ClassFile>classes, String outputPath) 
@@ -39,45 +43,54 @@ public class javaPrinter implements decompilerPrinter
 
 	public void generateOuputFile() throws decompilerException 
 	{
+		Dictionary<String, ArrayList<ClassFile>> sources = new Hashtable<>();
 		classFileHandler handler;
-		File output = new File("output");
-		if(!output.exists())
-			output.mkdirs();
+		
+		//populate javaFileName
 		for(ClassFile classObj:classes)
 		{
-			handler = classFileHandler.getInstance(classObj);
-			/*
-			System.out.println(handler.getSourceFile());
-			System.out.println(handler.getPackageName());
-			System.out.println(handler.getClassName());
-			System.out.println(handler.getSuperClassName());
-			
-			ArrayList<String>strs = handler.getImplementedInterfaces();
-			for(String str:strs)
+			String className = classObj.getClassName();
+			String sourceFileName = className.substring(0, className.lastIndexOf("/")+1)+classObj.getSourceFile();
+			ArrayList<ClassFile> cls = sources.get(sourceFileName);
+			if(cls==null)
 			{
-				System.out.println(">"+str);
+				cls = new ArrayList<ClassFile>();
+				sources.put(sourceFileName, cls);
 			}
-			strs = handler.getImportedPackage();
-			for(String str:strs)
-			{
-				System.out.println(">>"+str);
-			}*/
-			try 
-			{
-				output = new File("output\\"+handler.getClassName().replace("/", ".")+".java");
-				BufferedOutputStream fos = new BufferedOutputStream(new FileOutputStream(output));
-				String msg = classObj.toString();
-				System.out.println(msg);
-				
-				fos.write(msg.getBytes());
-				fos.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("=================================================================");
+			cls.add(classObj);
 		}
 		
+		Enumeration<String>sourceFiles = sources.keys();
+		
+		while(sourceFiles.hasMoreElements())
+		{
+			String sourceFile = sourceFiles.nextElement();
+			File output = new File(outputPath+"/"+sourceFile.substring(0,sourceFile.lastIndexOf("/")));
+			if(!output.exists())
+				output.mkdirs();
+			System.out.println("##sourceFile:"+sourceFile);
+			
+			output = new File(outputPath+"/"+sourceFile);
+			try 
+			{
+				FileWriter fos = new FileWriter(output);
+				ArrayList<ClassFile> cls = sources.get(sourceFile);
+				for(ClassFile classObj:cls)
+				{
+					handler = classFileHandler.getInstance(classObj);
+					String msg = classObj.toString();
+					System.out.println(msg);
+					
+					fos.write(msg);
+					fos.write("========================================");
+				}
+				fos.close();
+			} 
+			catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}
 	}
 
 }

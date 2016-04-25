@@ -1,6 +1,8 @@
 package com.sopiana.yang.javaDecompiler.component;
 
+import com.sopiana.yang.javaDecompiler.component.sub.attribute_info.SourceFile_attribute;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Class_info;
+import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Utf8_info;
 import com.sopiana.yang.javaDecompiler.component.sub.cp_info.CONSTANT_Void;
 import com.sopiana.yang.javaDecompiler.util.Util;
 
@@ -352,6 +354,33 @@ public class ClassFile
 		else
 			res += "class ";
 		return res;
+	}
+	
+	public String getSourceFile() throws decompilerException
+	{
+		for(attribute_info attrib:attributes)
+		{
+			if(attrib instanceof SourceFile_attribute)
+				return cp_info.getName(((SourceFile_attribute)attrib).getSourcefile_index(), constant_pool);
+		}
+		return null;
+	}
+	
+	public String getClassName() throws decompilerException
+	{
+		int nameIndex=0;
+
+		if(constant_pool[this_class] instanceof CONSTANT_Class_info)
+		{
+			nameIndex = ((CONSTANT_Class_info)constant_pool[this_class]).getName_index();
+		
+			if(constant_pool[nameIndex] instanceof CONSTANT_Utf8_info)
+			{
+				return ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString();
+			}
+			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
+		}
+		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Class_info");
 	}
 	
 	public String toString()

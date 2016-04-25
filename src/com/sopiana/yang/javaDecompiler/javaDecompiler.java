@@ -65,6 +65,7 @@ public class javaDecompiler
 		try
 		{
 			String fileName = options.getInputFileName();
+			String outputPath = options.getOutputPath();
 			File inputFile = new File(fileName);
 			if(!inputFile.exists())
 			{
@@ -73,9 +74,9 @@ public class javaDecompiler
 			}
 			
 			if(fileName.lastIndexOf(".jar")==fileName.length()-4)
-				processJarFile(inputFile);
+				processJarFile(inputFile, outputPath);
 			else if(fileName.lastIndexOf(".class")==fileName.length()-6)
-				processClassFile(inputFile);
+				processClassFile(inputFile, outputPath);
 			else
 				System.out.println("Unknown java file extension");
 		}
@@ -124,7 +125,7 @@ public class javaDecompiler
 	 * @throws FileNotFoundException if File is not exist
 	 * @throws decompilerException if the .class File has invalid Java Virtual Machine .class format
 	 */
-	public static void processClassFile(File classFile) throws FileNotFoundException, decompilerException
+	public static void processClassFile(File classFile, String outputPath) throws FileNotFoundException, decompilerException
 	{
 		ClassFile classObj;
 		int size = (int)classFile.length();
@@ -132,7 +133,7 @@ public class javaDecompiler
 			throw new decompilerException("Size is too big to handle");
 		InputStream fis = new FileInputStream(classFile);
 		classObj = getClassObject(fis, size);
-		javaPrinter printer = new javaPrinter();
+		javaPrinter printer = new javaPrinter(outputPath);
 		printer.addClass(classObj);
 	}
 	
@@ -150,7 +151,7 @@ public class javaDecompiler
 	 * @exception decompilerException if the .class File has invalid Java Virtual Machine .class format
 	 * @throws ZipException if .jar file is not in valid deflated (.zip) format
 	 */
-	public static void processJarFile(File jarFile) throws IOException, decompilerException, ZipException
+	public static void processJarFile(File jarFile, String outputPath) throws IOException, decompilerException, ZipException
 	{
 		try 
 		{
@@ -160,7 +161,7 @@ public class javaDecompiler
 			int size = 0;
 			InputStream fis = null;
 			ClassFile classObj;
-			javaPrinter printer = new javaPrinter();
+			javaPrinter printer = new javaPrinter(outputPath);
 
 			ArrayList<String> classFiles = new ArrayList<>();
 			// Get the list of file headers from the zip file

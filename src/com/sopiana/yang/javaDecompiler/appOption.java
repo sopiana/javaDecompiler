@@ -19,7 +19,7 @@ import com.sopiana.yang.javaDecompiler.optionParser.OptionParser;
 public final class appOption extends OptionParser
 {
 	private String inputFileName;
-	private String outputPath;
+	private String outputPath="output";
 	private boolean showVersion;
 	private boolean showHelp;
 	private String[] helpContents;
