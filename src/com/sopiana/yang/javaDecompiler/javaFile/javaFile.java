@@ -4,6 +4,7 @@ import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
 import com.sopiana.yang.javaDecompiler.component.field_info;
+import com.sopiana.yang.javaDecompiler.component.method_info;
 
 public class javaFile {
 	private ClassFile classObj;
@@ -13,6 +14,7 @@ public class javaFile {
 	private String superClassName;
 	private String[] interfaces;
 	private javaField[] fields;
+	private javaMethod[] methods;
 	private javaFile(ClassFile classObj){
 		this.classObj = classObj;
 	}
@@ -26,6 +28,7 @@ public class javaFile {
 			res.resolveSuperClassName();
 			res.resolveInterfaces();
 			res.resolveFields();
+			res.resolveMethods();
 			return res;
 		} catch (decompilerException e) {
 			// TODO Auto-generated catch block
@@ -76,6 +79,17 @@ public class javaFile {
 		for(int i=0;i<fieldsObj.length;++i)
 		{
 			this.fields[i] = javaField.getInstance(classObj, fieldsObj[i]);
+		}
+	}
+	
+	private void resolveMethods() throws decompilerException
+	{
+		this.methods = new javaMethod[this.classObj.getMethods_count()];
+		method_info[] methodsObj = this.classObj.getMethods();
+		System.out.println("::methods:"+methodsObj.length);
+		for(int i=0;i<methodsObj.length;++i)
+		{
+			this.methods[i] = javaMethod.getInstance(classObj, methodsObj[i]);
 		}
 	}
 }
