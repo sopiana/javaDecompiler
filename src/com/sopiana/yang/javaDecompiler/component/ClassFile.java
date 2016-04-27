@@ -36,6 +36,7 @@ import com.sopiana.yang.javaDecompiler.util.Util;
  */
 public class ClassFile
 {
+	public static final String ObjectClass="java/lang/Object";
 	/**
 	 * Class is declared <code>public</code>; may be accessed from outside its package.
 	 */
@@ -381,6 +382,41 @@ public class ClassFile
 			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
 		}
 		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Class_info");
+	}
+	
+	public String getSuperClassName() throws decompilerException
+	{
+		int nameIndex=0;
+
+		if(constant_pool[super_class] instanceof CONSTANT_Class_info)
+		{
+			nameIndex = ((CONSTANT_Class_info)constant_pool[super_class]).getName_index();
+		
+			if(constant_pool[nameIndex] instanceof CONSTANT_Utf8_info)
+			{
+				String superClassName = ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString();
+				return superClassName.equals(ObjectClass)?null:superClassName;
+			}
+			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
+		}
+		throw new decompilerException("constant_pool entry in specified argument is not CONSTANT_Class_info");
+	}
+	
+	public String getInterfaceName(int cp_index) throws decompilerException
+	{	
+		int nameIndex=0;
+
+		if(constant_pool[cp_index] instanceof CONSTANT_Class_info)
+		{
+			nameIndex = ((CONSTANT_Class_info)constant_pool[cp_index]).getName_index();
+		
+			if(constant_pool[nameIndex] instanceof CONSTANT_Utf8_info)
+			{
+				return ((CONSTANT_Utf8_info)constant_pool[nameIndex]).getString();
+			}
+			throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
+		}
+		throw new decompilerException("constant_pool entry in specified name index is not CONSTANT_Utf8_info");
 	}
 	
 	public String toString()

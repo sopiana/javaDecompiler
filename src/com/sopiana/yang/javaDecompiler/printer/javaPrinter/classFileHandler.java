@@ -53,7 +53,7 @@ public class classFileHandler
 				for(InnerClass_info cla:innerClasses)
 				{
 					if(cla.getInner_name_index()!=0)
-						System.out.println("===>"+cp_info.getName(cla.getInner_name_index(),classObj.getConstant_pool()));
+						;//TODO: delete this System.out.println("===>"+cp_info.getName(cla.getInner_name_index(),classObj.getConstant_pool()));
 				}
 			}
 		}

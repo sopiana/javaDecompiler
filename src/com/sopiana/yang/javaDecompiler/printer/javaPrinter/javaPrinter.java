@@ -1,8 +1,6 @@
 package com.sopiana.yang.javaDecompiler.printer.javaPrinter;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,6 +10,7 @@ import java.util.Hashtable;
 
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
+import com.sopiana.yang.javaDecompiler.javaFile.javaFile;
 import com.sopiana.yang.javaDecompiler.printer.decompilerPrinter;
 
 public class javaPrinter implements decompilerPrinter
@@ -68,8 +67,6 @@ public class javaPrinter implements decompilerPrinter
 			File output = new File(outputPath+"/"+sourceFile.substring(0,sourceFile.lastIndexOf("/")));
 			if(!output.exists())
 				output.mkdirs();
-			System.out.println("##sourceFile:"+sourceFile);
-			
 			output = new File(outputPath+"/"+sourceFile);
 			try 
 			{
@@ -82,7 +79,8 @@ public class javaPrinter implements decompilerPrinter
 					System.out.println(msg);
 					
 					fos.write(msg);
-					fos.write("========================================");
+					javaFile.getInstance(classObj);
+					fos.write("========================================\n");
 				}
 				fos.close();
 			} 
