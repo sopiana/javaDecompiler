@@ -3,6 +3,7 @@ package com.sopiana.yang.javaDecompiler.javaFile;
 import com.sopiana.yang.javaDecompiler.component.ClassFile;
 import com.sopiana.yang.javaDecompiler.component.cp_info;
 import com.sopiana.yang.javaDecompiler.component.decompilerException;
+import com.sopiana.yang.javaDecompiler.component.field_info;
 
 public class javaFile {
 	private ClassFile classObj;
@@ -11,7 +12,7 @@ public class javaFile {
 	private String classModifier;
 	private String superClassName;
 	private String[] interfaces;
-	
+	private javaField[] fields;
 	private javaFile(ClassFile classObj){
 		this.classObj = classObj;
 	}
@@ -24,6 +25,7 @@ public class javaFile {
 			res.resolveClassModifier();
 			res.resolveSuperClassName();
 			res.resolveInterfaces();
+			res.resolveFields();
 			return res;
 		} catch (decompilerException e) {
 			// TODO Auto-generated catch block
@@ -64,5 +66,16 @@ public class javaFile {
 			System.out.print(this.interfaces[i]+" ");
 		}
 		System.out.println();
+	}
+	
+	private void resolveFields() throws decompilerException
+	{
+		this.fields = new javaField[this.classObj.getFfields_count()];
+		field_info[] fieldsObj = this.classObj.getFields();
+		System.out.println("::fields:"+fieldsObj.length);
+		for(int i=0;i<fieldsObj.length;++i)
+		{
+			this.fields[i] = javaField.getInstance(classObj, fieldsObj[i]);
+		}
 	}
 }
