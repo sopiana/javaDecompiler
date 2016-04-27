@@ -122,4 +122,49 @@ public class Util
 		dest[offset++] = Util.getLowByte(lowShort);
 		return offset+=4;
 	}
+	
+	public static String getFieldDescriptor(String input)
+	{
+		String res="";
+		boolean isArray = false;
+		boolean isReference = false;
+		int i=0;
+		for(;i<input.length()&&!isReference;++i)
+		{
+			switch(input.charAt(i))
+			{
+				case'B':
+					res+="byte";break;
+				case 'C':
+					res+="char";break;
+				case 'D':
+					res+="double";break;
+				case 'F':
+					res+="float";break;
+				case 'I':
+					res+="int";break;
+				case 'J': 
+					res+="long";break;
+				case 'L':
+					isReference = true; break;
+				case 'S': 
+					res+="short";break;
+				case 'Z': 
+					res+="boolean";break;
+				case '[':
+					res+="[]";
+					isArray = true;
+					break;
+				default:
+					break;
+			}
+		}
+		if(isReference)
+			res += input.substring(i).replace("/", ".").replace(";", "");
+		if(isArray)
+		{
+			res = res.substring(res.lastIndexOf("]")+1)+res.substring(0, res.lastIndexOf("]")+1);
+		}
+		return res;
+	}
 }
